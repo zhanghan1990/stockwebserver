@@ -19,7 +19,6 @@ import re
 from os import listdir
 from os.path import isfile, join
 from os import walk
-from mongodb import LoadDataCVS
 from pandas import DataFrame
 import constants
 import math
@@ -351,7 +350,7 @@ class InsertDataCVS:
 
         dfs = []
 
-        basedir = os.path.join(os.path.dirname(__file__), "xlsx")
+        basedir = os.path.join(self.basedir, "xlsx")
 
         for i in in_package_data:
             dfs.append(pd.read_excel(os.path.join(basedir, "%d.xlsx" % i)))
