@@ -1,5 +1,5 @@
 # this is my data ip and port
-IP="127.0.0.1"
+IP="192.168.1.127"
 PORT=27017
 # this is data storage path
 basedir="/home/vserver5"
