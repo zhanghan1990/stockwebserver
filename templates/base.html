@@ -1,0 +1,45 @@
+{% extends "bootstrap/base.html"  %}
+{% block head %}
+{{ super() }}
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<link rel="shortcut icon" href="{{ url_for('static',filename = 'favicon.png') }}"  type='image/x-icon'/>
+<link rel="icon" href="{{ url_for('static',filename = 'favicon.png')  }}" type="image/x-icon"/>
+{% endblock %}
+
+{% block title %}点石成金{% endblock %}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">主页</a></li>
+                 <li><a href="/select">主观选股</a></li>
+                <li><a href="/">量化回测</a></li>
+                <li><a href="/">模拟交易</a></li>
+                <li><a href="/">风险评估</a></li>
+                <li><a href="/">热点新闻</a></li>
+                <li><a href="/">龙虎榜</a></li>
+            </ul>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  {% block page_content %}{% endblock %}
+</div>
+
+
+{% endblock %}

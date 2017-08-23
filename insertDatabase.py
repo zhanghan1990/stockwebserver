@@ -49,10 +49,12 @@ class InsertDataCVS:
         self.pool=self.client.pool  #storate pool
         
         self.treasure=self.client.treasure
-        self.oriprice=self.client.stockoriginalprice #stock original price
-        self.qfqprice=self.client.stockqfqprice #stock qfq price
-        self.hfqprice=self.client.stockhfqprice #stock hfq price
+        self.oriprice=self.client.stockoriginalprice    #股票原始数据
+        self.qfqprice=self.client.stockqfqprice         #存储股票前复权
+        self.hfqprice=self.client.stockhfqprice         #股票后复权
 
+
+        self.pricetime = self.client.pricetime     #按照时间进行存储
 
         self.test=self.client.test
 
@@ -71,7 +73,10 @@ class InsertDataCVS:
     '''
     def storageqfq(self):
         alldatabase=self.oriprice.collection_names()
+
         for code in alldatabase:
+            
+            self.qfqprice[code].drop()
             
             if code =='system.indexes':
                 continue
@@ -82,65 +87,79 @@ class InsertDataCVS:
 
             flag=False
             yesterday=rows[stockdatalen-1]
+
+            print(u"股票: "+code+u"进行复权处理")
+
             while i > 0:
-                
-                today=yesterday
+                         
+                today = yesterday
 
-                yesterday=rows[i-1]
+                yesterday = rows[i-1]
 
-                computeyesterdayclose=today['close']/(1+float(today['change']))
-                #print computeyesterdayclose,yesterday['open']/today['open']
-                computeopen=yesterday['open']/yesterday['close']*computeyesterdayclose
-                computehigh=yesterday['high']/yesterday['close']*computeyesterdayclose
-                computelow=yesterday['low']/yesterday['close']*computeyesterdayclose
-                
-                realyesterday=yesterday['close']
-
-
-                # 说明数据需要用复权数据重新计算
-                if flag==False:
-                    if (math.fabs(computeyesterdayclose - realyesterday)+0.0)/(computeyesterdayclose+0.0)>0.05:
-                        flag=True
-                        series={}
-                        series['code']=yesterday['code']
-                        series["open"]=computeopen
-                        series["high"]=computehigh
-                        series["low"]=computelow
-                        series["close"]=computeyesterdayclose
-                        series["change"]=yesterday['change']
-                        series["volume"]=yesterday['volume']
-                        series["money"]=yesterday['money']
-                        series["traded_market_value"]=yesterday['traded_market_value']
-                        series["market_value"]=yesterday['market_value']
-                        series["turnover"]=yesterday['turnover']
-                        series['date'] =yesterday['date']
-
-                        print(u"股票: "+code+u"从"+str(today['date'])+u" 开始需要进行复权处理,今天的价格为"+str(today['close']))
-                        #更新yesterday 的情况，主要是更新价格
-                        yesterday=series
-                    else:
-                        series=yesterday
-
-                else:
-                    print(u"股票: "+code+u"进行"+str(today['date'])+u"复权处理,收盘价格为"+str(computeyesterdayclose))
-                    series={}
-                    series['code']=yesterday['code']
-                    series["open"]=computeopen
-                    series["high"]=computehigh
-                    series["low"]=computelow
-                    series["close"]=computeyesterdayclose
-                    series["change"]=yesterday['change']
-                    series["volume"]=yesterday['volume']
-                    series["money"]=yesterday['money']
-                    series["traded_market_value"]=yesterday['traded_market_value']
-                    series["market_value"]=yesterday['market_value']
-                    series["turnover"]=yesterday['turnover']
-                    series['date'] =yesterday['date']
-                    yesterday=series
+                computeyesterdayclose = today['close']/(1+float(today['change']))
+                computeopen = yesterday['open']/yesterday['close']*computeyesterdayclose
+                computehigh = yesterday['high']/yesterday['close']*computeyesterdayclose
+                computelow  =  yesterday['low']/yesterday['close']*computeyesterdayclose
+                series={}
 
                 
+                series["open"]=computeopen
+                series["high"]=computehigh
+                series["low"]=computelow
+                series["close"]=computeyesterdayclose
+                series["change"]=yesterday['change']
+                series["volume"]=yesterday['volume']
+                series["money"]=yesterday['money']
+                series["traded_market_value"]=yesterday['traded_market_value']
+                series["market_value"]=yesterday['market_value']
+                series["turnover"]=yesterday['turnover']
+                series['date'] =yesterday['date']
 
+                #插入这条记录到数据库当中
+                self.qfqprice[code].insert(series)
+                #print code,series['date'],series["close"],yesterday['close'],series["high"],series["low"],series["open"]
+
+                yesterday=series
                 i-=1
+
+    
+    #股票按照时间进行索引存储，便于计算指数
+    def storagebyTime(self):
+        
+        
+        # get stock data in newdata dir
+        onlyfiles = [ f for f in listdir(self.newdata) if isfile(join(self.newdata,f)) ]
+        
+        for f in onlyfiles:
+            fdate=f[0:10]
+            kind=f[11]
+            if kind=='i':
+                continue
+
+            self.pricetime[fdate].drop()
+            
+       
+        #read from using pandas
+        totaltables=self.pricetime.collection_names()
+        for f in onlyfiles:
+            fdate=f[0:10]
+            kind=f[11]
+            if kind=='i':
+                continue
+            #self.pricetime[fdate].drop()
+
+            df = pd.read_csv(self.newdata+"/"+f)
+            if len(f) < 12:
+                continue
+            if fdate in totaltables:
+                print fdate+u"的股票数据已经存在"
+                continue
+
+            #df.index = df.code
+            print u"插入"+fdate+u"的股票数据"
+            records = json.loads(df.T.to_json()).values()
+            self.pricetime[fdate].insert_many(records) 
+
 
 
 
@@ -150,20 +169,20 @@ class InsertDataCVS:
     def storagedaily(self):
         #get the filelist in stockdata
         onlyfiles = [ f for f in listdir(self.stockdata) if isfile(join(self.stockdata,f)) ]
-        
+
         #read from using pandas
         alldatabase=self.oriprice.collection_names()
         for f in onlyfiles:
             df = pd.read_csv(self.stockdata+"/"+f)
             #del those, insert them into another data base
-            del df['adjust_price']
-            del df['report_type']
-            del df['report_date']
-            del df['PE_TTM']
-            del df['PS_TTM']
-            del df['PC_TTM']
-            del df['PB']
-            del df['adjust_price_f']
+            # del df['adjust_price']
+            # del df['report_type']
+            # del df['report_date']
+            # del df['PE_TTM']
+            # del df['PS_TTM']
+            # del df['PC_TTM']
+            # del df['PB']
+            # del df['adjust_price_f']
             s=f.split('.')
             name = s[0]
 
@@ -179,7 +198,7 @@ class InsertDataCVS:
                 row['date'] = datetime.datetime.strptime(row['date'], "%Y-%m-%d")
 
 
-            self.oriprice[name].insert_many(records) 
+            self.oriprice[name].insert_many(records,ordered=False) 
 
 
         # get stock data in newdata dir
@@ -197,14 +216,14 @@ class InsertDataCVS:
             if len(f) < 12:
                 continue
 
-            del df['adjust_price']
-            del df['report_type']
-            del df['report_date']
-            del df['PE_TTM']
-            del df['PS_TTM']
-            del df['PC_TTM']
-            del df['PB']
-            del df['adjust_price_f']
+            # del df['adjust_price']
+            # del df['report_type']
+            # del df['report_date']
+            # del df['PE_TTM']
+            # del df['PS_TTM']
+            # del df['PC_TTM']
+            # del df['PB']
+            # del df['adjust_price_f']
 
             codes=df.code
             series={}
@@ -221,7 +240,13 @@ class InsertDataCVS:
                 series["money"]=df.iloc[i].money
                 series["traded_market_value"]=df.iloc[i].traded_market_value
                 series["market_value"]=df.iloc[i].market_value
-                series["turnover"]=df.iloc[i].turnover
+                series["adjust_price"]=df.iloc[i].adjust_price
+                series["report_type"]=df.iloc[i].report_type
+                series["PE_TTM"]=df.iloc[i].PE_TTM
+                series["PS_TTM"]=df.iloc[i].PS_TTM
+                series["PC_TTM"]=df.iloc[i].PC_TTM
+                series["PB"]=df.iloc[i].PB
+                series["adjust_price_f"]=df.iloc[i].adjust_price_f
                 series['date'] = datetime.datetime.strptime(df.iloc[i].date, "%Y-%m-%d")
                 name=code
                 #check exits
@@ -305,6 +330,7 @@ class InsertDataCVS:
     
     #storage stock pool into database
     def storagepool(self):
+        #self.Delete_pool()
         #storage zz500
         df=ts.get_zz500s()
         self.pool['zz500'].insert_many(json.loads(df.to_json(orient='records')))
@@ -413,7 +439,7 @@ class InsertDataCVS:
         alldatabase=self.pool.collection_names()
         for con in alldatabase:
             print u"删除"+con
-            self.connection[con].drop()
+            self.pool[con].drop()
 
 
 
@@ -461,6 +487,17 @@ class InsertDataCVS:
             print(u"股票"+name+" "+str(series['date'])+u"已经存在")
 
 
+    def Delete_TimeStore(self):
+        
+        onlyfiles = [ f for f in listdir(self.newdata) if isfile(join(self.newdata,f)) ]
+        
+        for f in onlyfiles:
+            fdate=f[0:10]
+            kind=f[11]
+            if kind=='i':
+                continue
+            self.pricetime[fdate].drop()
+            
     def Close(self):
         self.client.close()
 
@@ -488,13 +525,18 @@ if __name__ == '__main__':
     #I.storageqfq()
     #I.Close()
     # I.Delete_stock()
-    I.Delete_treasure()
+    #I.Delete_treasure()
     # # # I.Delete_connection()
-    I.insert_zipline_treasure_format()
+    #I.insert_zipline_treasure_format()
     # # I.Close()
-    # #I.storageqfq()
+   # I.Delete_pool()
+    #I.storagepool()
+    #I.storageqfq()
     I.storageindex()
     I.storagedaily()
+    #I.storageqfq()
+    I.Delete_TimeStore()
+    I.storagebyTime()
     I.Close()
     #I.storageindex()
 

@@ -1,0 +1,86 @@
+{% extends "base.html"  %}
+
+{% block title %}股票列表{% endblock %}
+
+{% block page_content %}
+<script src="{{ url_for('static', filename='sort.js') }}"></script>
+<h1 align="center">{{title}}</h1>
+<table class="table" id="tableSort">
+  <thead>
+    <tr>
+      <th scope="row">名称</th>
+      <th scope="row">代码</th>
+      <th scope="row",type="number">市盈率</th>
+      <th scope="row",type="number">市净率</th>
+      <th scope="row",type="number">市销率</th>
+      <th scope="row",type="number">市现率</th>
+      <th scope="row",type="number">换手率</th>
+      <th scope="row",type="number">交易量(万手)</th>
+      <th scope="row",type="number">流通市值(亿)</th>
+      <th scope="row",type="number">涨跌幅(％)</th>
+      <th scope="row",type="number">5日涨跌(％)</th>
+      <th scope="row",type="number">10日涨跌(％)</th>
+      <th scope="row",type="number">1月涨跌(％)</th>
+      <th scope="row",type="number">3月涨跌(％)</th>
+    </tr>
+     </thead>
+    <tbody>
+   {% for e in entry %}
+   <tr>
+      <td><a href="/stockdetail/{{e.code}}-{{e.name}}"><font>{{e.name}}</td>
+      <td><a href="/stockdetail/{{e.code}}-{{e.name}}"><font>{{e.code}}</td>
+      <td><font>{{e.pe}}</td>
+      <td><font>{{e.pb}}</td>
+      <td><font>{{e.ps}}</td>
+      <td><font>{{e.pc}}</td>
+      <td><font>{{e.turnoverratio}}</td>
+      <td><font>{{e.volume}}</td>
+      <td><font>{{e.marketcap}}</td>
+
+      {%if e.change > 0%}
+     <td><font color="red">{{e.change}}</td>
+     {% elif e.change < 0 %}
+     <td><font color="green">{{e.change}}</td>
+      {% else%}
+      <td><font>{{e.change}}</td>
+     {% endif %} 
+
+      {%if e.day1 > 0%}
+     <td><font color="red">{{e.day1}}</td>
+     {% elif e.day1 < 0 %}
+     <td><font color="green">{{e.day1}}</td>
+      {% else%}
+      <td><font>{{e.day1}}</td>
+     {% endif %} 
+     
+      {%if e.day2 > 0%}
+     <td><font color="red">{{e.day2}}</td>
+     {% elif e.day2 < 0 %}
+     <td><font color="green">{{e.day2}}</td>
+      {% else%}
+      <td><font>{{e.day2}}</td>
+     {% endif %} 
+
+      {%if e.day3 > 0%}
+     <td><font color="red">{{e.day3}}</td>
+     {% elif e.day3 < 0 %}
+     <td><font color="green">{{e.day3}}</td>
+      {% else%}
+      <td><font>{{e.day3}}</td>
+     {% endif %} 
+
+      {%if e.day4 > 0%}
+     <td><font color="red">{{e.day4}}</td>
+     {% elif e.day4 < 0 %}
+     <td><font color="green">{{e.day4}}</td>
+      {% else%}
+      <td><font>{{e.day4}}</td>
+     {% endif %} 
+      
+
+     </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

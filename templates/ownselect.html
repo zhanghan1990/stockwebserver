@@ -1,0 +1,163 @@
+{% extends "base.html"  %}
+{% block title %}主观选股{% endblock %}
+{% block page_content %}
+<script src="{{ url_for('static', filename='stock.js') }}"></script>
+    <div style="width:500px; float:left;">
+        <h1 align="center">选股条件</h1>
+
+
+        <h4>价格因子</h4>
+        <form class="form-inline">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="changedown" value="1" >
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail2">&lt 1日涨跌幅 &lt</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="changeup" value="10">
+                </div>
+                
+        </form>
+
+
+
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control" id="5daydown" value="1" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">&lt 5日涨跌幅 &lt</label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="5dayup" value="10">
+          </div>
+        </form>
+
+
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control" id="10daydown" value="1" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">&lt 10日涨跌幅 &lt</label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="10dayup" value="10">
+          </div>
+        </form>
+
+
+
+
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control" id="30daydown" value="1" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">&lt 30日涨跌幅 &lt</label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="30dayup" value="10">
+          </div>
+        </form>
+
+
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control" id="90daydown" value="1" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">&lt 90日涨跌幅 &lt</label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="90dayup" value="10">
+          </div>
+        </form>
+
+
+
+
+
+
+
+
+
+
+
+        <h4>价值因子</h4>
+        <form class="form-inline">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="pedown" value="1" >
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail2">&lt PE &lt</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="peup" value="10">
+                </div>
+                
+        </form>
+
+
+        <form class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control" id="psdown" value="1" >
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail2">&lt PS &lt</label>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="psup" value="10">
+            </div>
+        </form>
+
+
+
+
+        <form class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control" id="pbdown" value="1" >
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail2">&lt PB &lt</label>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="pbup" value="10">
+            </div>
+        </form>
+
+
+
+
+        <form class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control" id="pcdown" value="1" >
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail2">&lt PC &lt</label>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="pcup" value="10">
+            </div>
+        </form>
+
+
+
+
+
+
+        
+        <button type="submit" class="btn btn-default" id="button">确定</button>
+        
+
+    </div> 
+
+    <div style=" margin-left:500px;">
+        <h1 align="center">选股结果</h1>
+        <div id="detailTabShow"></div>
+    </div>  
+
+
+
+{% endblock %}

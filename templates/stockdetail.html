@@ -1,0 +1,14 @@
+{% extends "base.html"  %}
+
+{% block title %}股票信息{% endblock %}
+
+{% block page_content %}
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+
+<div id="main" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+<div id="url" hidden>{{entry[0].url}}</div>
+<div id="title" hidden>{{title}}</div>
+
+<script src="{{ url_for('static', filename='echarts.js') }}"></script>
+<script src="{{ url_for('static', filename='kchart.js') }}"></script>
+{% endblock %}
