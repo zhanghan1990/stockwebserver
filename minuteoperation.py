@@ -35,6 +35,7 @@ class MinuteOperation:
         self.remoteport = RemotePort
         self.localport  = LocalPort
 
+    # 获取所有股票的实时行情信息（1）先从远程仓储中获得，如果失败，然后
     def getRealTime(self):
         realTimeName=self.rawstockdata.collection_names()
 
@@ -347,7 +348,7 @@ class MinuteOperation:
                 totaldata=zip(series['close'],series["change"])
                 stockdf = pd.DataFrame(data=list(totaldata),index=series["date"],columns = ['close','change'])
 
-                print stockdf
+                #print stockdf
 
                 if(stockdf.iloc[-1].close !=0):
                     stock_5day= (stockdf.iloc[-1].close-stockdf.iloc[-6].close)/stockdf.iloc[-1].close*100

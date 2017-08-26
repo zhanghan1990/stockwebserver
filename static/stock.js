@@ -12,6 +12,38 @@ $('#button').click(function(){
 
     pcdown=document.getElementById("pcdown").value;
     pcup=document.getElementById("pcup").value;
+
+
+    marketdown = document.getElementById("marketdown").value;
+    marketup= document.getElementById("marketup").value;
+
+
+    turnoverdown = document.getElementById("turnoverdown").value;
+    turnoverup = document.getElementById("turnoverup").value;
+
+    onedayup = document.getElementById("1dayup").value;
+    onedaydown = document.getElementById("1daydown").value;
+
+    fivedayup= document.getElementById("5dayup").value;
+    fivedaydown= document.getElementById("5daydown").value;
+
+
+    tendayup= document.getElementById("10dayup").value;
+    tendaydown= document.getElementById("10daydown").value;
+
+
+
+    thirtydayup= document.getElementById("30dayup").value;
+    thirtydaydown= document.getElementById("30daydown").value;
+
+
+    nightydayup= document.getElementById("90dayup").value;
+    nightydaydown= document.getElementById("90daydown").value;
+
+
+
+
+
     var data={
         "peup":peup,
         "pedown":pedown,
@@ -20,7 +52,22 @@ $('#button').click(function(){
         "pbdown":pbdown,
         "pbup":pbup,
         "pcdown":pcdown,
-        "pcup":pcup
+        "pcup":pcup,
+        "onedayup":onedayup,
+        "onedaydown":onedaydown,
+        "fivedayup":fivedayup,
+        "fivedaydown":fivedaydown,
+        "tendayup":tendayup,
+        "tendaydown":tendaydown,
+        "thirtydayup":thirtydayup,
+        "thirtydaydown":thirtydaydown,
+        "nightydayup":nightydayup,
+        "nightydaydown":nightydaydown,
+        "marketdown":marketdown,
+        "marketup":marketup,
+        "turnoverdown":turnoverdown,
+        "turnoverup":turnoverup
+
     };  
     $.ajax({ 
         type:"GET", 

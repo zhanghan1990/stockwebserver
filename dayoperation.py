@@ -265,9 +265,10 @@ class DayOperation:
 
 
         self.industryindex = self.client.industryindex #行业指数信息
-
         self.indestrytimepool =self.client.industryrealtimepool  # 存储行业指数实时行情
 
+        self.specialindex = self.client.specialindex #存储自定义股票池指数
+        self.specialpool = self.client.specialpool #存储自定义的股票池
 
 
 
@@ -334,17 +335,8 @@ class DayOperation:
 
     def insertDetail(self,realTime,tusharedata,tushareindex,indexcode,dbname,dbdetail):
         
-        today=time.strftime('%Y-%m-%d',time.localtime(time.time()))
-        hundredyday=(datetime.datetime.now()-datetime.timedelta(days=150)).strftime("%Y-%m-%d")
+        #print fiveday,tenday,thirtyday,nightyday
 
-
-        #获取指数 过去一段时间的特性
-        indexhistorydata=ts.get_k_data(code=indexcode,index=True,start=hundredyday,end=today)
-        index_5day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-6].close)/indexhistorydata.iloc[-1].close*100
-        index_10day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-11].close)/indexhistorydata.iloc[-1].close*100
-        index_30day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-31].close)/indexhistorydata.iloc[-1].close*100
-        index_90day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-91].close)/indexhistorydata.iloc[-1].close*100
-        
         if indexcode =='000016':
             df=ts.get_sz50s()
         elif indexcode =='000300':
@@ -356,119 +348,61 @@ class DayOperation:
         elif indexcode =='000001':
             df=realTime
 
-        
 
         ape=0
         up =0
         down =0
         number = 0
 
+        fivedata,tendata,thirtydata,nightydata=self.getindexdata(indexcode)
+
+        today=time.strftime('%Y-%m-%d',time.localtime(time.time()))
+        hundredyday=(datetime.datetime.now()-datetime.timedelta(days=150)).strftime("%Y-%m-%d")
+
+        #获取指数 过去一段时间的特性
+        indexhistorydata=ts.get_k_data(code=indexcode,index=True,start=hundredyday,end=today)
+        #print indexhistorydata
+        index_5day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-4].close)/indexhistorydata.iloc[-1].close*100
+        index_10day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-7].close)/indexhistorydata.iloc[-1].close*100
+        index_30day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-21].close)/indexhistorydata.iloc[-1].close*100
+        index_90day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-64].close)/indexhistorydata.iloc[-1].close*100
+
+
 
         for i in range(0,len(df)):
             code=df.iloc[i].code
-            
-            #print code,df.iloc[i].name
-            series={"date":[],"close":[],"change":[]}
-            
-            timehundrd = datetime.datetime.strptime(hundredyday, "%Y-%m-%d")
-            timetoday =  datetime.datetime.strptime(today, "%Y-%m-%d")
 
             if code[0]=='3' or code[0]=='0':
-                tmpcode = 'sz'+code
+                tmp = 'sz'+code
             elif code[0]=='6':
-                tmpcode='sh'+code
+                tmp='sh'+code
             else:
-                tmpcode = code
+                tmp = code
 
 
+            dict1=self.getstockdetail(realTime,tusharedata,fivedata,tendata,thirtydata,nightydata,tmp)
+            if dict1 == None:
+                continue
+            self.realtimepool[dbdetail].insert(dict1)
 
-            for stockdaily in self.oriprice[tmpcode].find({"date": {"$gte": timehundrd,"$lt":timetoday}}).sort("date"):
-                series["date"].append(stockdaily["date"])
-                series["close"].append(stockdaily["adjust_price"]) 
-                series["change"].append(stockdaily["change"])
+            if realTime.loc[tmp].PE_TTM >0 and realTime.loc[tmp].PE_TTM < 1000:
+                ape+=realTime.loc[tmp].PE_TTM
+                number +=1
 
             
-            length = len(indexhistorydata)
+            if float(dict1['change']) >0:
+                up+=1
+            if float(dict1['change']) <0:
+                down+=1
+
             
-            for i in range(0,length):
-                timestep=datetime.datetime.strptime(indexhistorydata.iloc[i].date, "%Y-%m-%d")            
-                if (timestep in series["date"]) ==False:
-                    if i !=0:
-                        series["date"].insert(i,timestep) 
-                        series["close"].insert(i,series["close"][i-1]) 
-                        series["change"].insert(i,series["change"][i-1])
-                        
-                    else:
-                        series["date"].insert(i,timestep)
-
-                        # 没有数据
-                        if len(series["close"]) ==0:
-                             series["close"].insert(i,0)
-                             series["change"].insert(i,0)
-                        else:
-                            series["close"].insert(i,series["close"][0]) 
-                            series["change"].insert(i,series["change"][0])
-                       
-
-
-            totaldata=zip(series['close'],series["change"])
-            stockdf = pd.DataFrame(data=list(totaldata),index=series["date"],columns = ['close','change'])
-
-            if(stockdf.iloc[-1].close !=0):
-                stock_5day= (stockdf.iloc[-1].close-stockdf.iloc[-6].close)/stockdf.iloc[-1].close*100
-                stock_10day=(stockdf.iloc[-1].close-stockdf.iloc[-11].close)/stockdf.iloc[-1].close*100
-                stock_30day=(stockdf.iloc[-1].close-stockdf.iloc[-31].close)/stockdf.iloc[-1].close*100
-                stock_90day=(stockdf.iloc[-1].close-stockdf.iloc[-91].close)/stockdf.iloc[-1].close*100
-            else:
-                stock_5day=0
-                stock_10day=0
-                stock_30day=0
-                stock_90day=0
-
-
-            # realtime 中可能没有获取的股票数据，因此加上一个判断是否存在的句子    
-            if tmpcode in realTime.index:
-                pe = realTime.loc[tmpcode].PE_TTM
-                tmp = tusharedata.loc[tmpcode[2:8]].code
-                
-                
-                if tmp not in tusharedata.index:
-                    continue
-
-                name = tusharedata.loc[tmp].stockname
-                turnoverratio=float(realTime.loc[tmpcode].turnover)*100
-                changepercent=float(realTime.loc[tmpcode].change)*100
-                if changepercent >0:
-                    up+=1
-                if changepercent <0:
-                    down+=1
-                volume = realTime.loc[tmpcode].volume/10000
-                makrket = float(realTime.loc[tmpcode].traded_market_value)/100000000
-                pb = realTime.loc[tmpcode].PB
-                pc = realTime.loc[tmpcode].PC_TTM
-                ps = realTime.loc[tmpcode].PS_TTM
-                dict1={"code":code,"name":name,"pe":pe,"change":changepercent,"turnoverratio":turnoverratio,"volume":volume,"marketcap":makrket,"5day":stock_5day,"10day":stock_10day,"30day":stock_30day,"90day":stock_90day,"pb":pb,"pc":pc,"ps":ps}
-
-                
-                self.realtimepool[dbdetail].insert(dict1)
-
-                if pe >0 and pe < 1000:
-                    ape+=realTime.loc[tmpcode].PE_TTM
-                    number +=1
          
         ape /=number
 
 
         mydict = {"ape":ape,"now":tushareindex.ix[indexcode].close,"diff":tushareindex.ix[indexcode].change,"5day":index_5day,"10day":index_10day,"30day":index_30day,"90day":index_90day,"up":up,"down":down}
+        #print mydict
         self.realtimepool[dbname].insert(mydict)
-        
-
-
-
-       
-
-
-
         
 
     '''
@@ -491,19 +425,12 @@ class DayOperation:
     #计算行业的一些信息
     def ComputeRealIndex(self,realTime,tusharedata,tushareindex):
         series = {}
-
-        #获取指数 过去一段时间的特性
-        today=time.strftime('%Y-%m-%d',time.localtime(time.time()))
-        hundredyday=(datetime.datetime.now()-datetime.timedelta(days=150)).strftime("%Y-%m-%d")
-
-                
-        timehundrd = datetime.datetime.strptime(hundredyday, "%Y-%m-%d")
-        timetoday =  datetime.datetime.strptime(today, "%Y-%m-%d")
-        indexhistorydata=ts.get_k_data(code='000001',index=True,start=hundredyday,end=today)
-
         allindustry=self.industry.collection_names()  
 
         totalnames=[]
+        
+        fivedata,tendata,thirtydata,nightydata=self.getindexdata('000001')
+
 
         # 对每个行业进行操作
         for i in allindustry:
@@ -524,14 +451,14 @@ class DayOperation:
             n=0
             # realtime 中可能没有获取的股票数据，因此加上一个判断是否存在的句子
             industrydetail=i+"detail" 
+            
+            
             for code in codes:
-                listcodes.append(code)
                 if code.keys()[0][0]=='3' or  code.keys()[0][0]=='0' or code.keys()[0][0]=='6':
                     c = code.keys()[0]
                 else:
                     c =code.keys()[1]
 
-                series={"date":[],"close":[],"change":[]}
 
                 if c[0]=='3' or c[0]=='0':
                     tmpcode= 'sz'+c
@@ -540,107 +467,39 @@ class DayOperation:
                 else:
                     tmpcode=c
 
-                #print tmpcode
+               
+                tmp = tusharedata.loc[tmpcode[2:8]].code
+                
+                dict1=self.getstockdetail(realTime,tusharedata,fivedata,tendata,thirtydata,nightydata,tmpcode)
+                if dict1 == None:
+                    continue
+                #n +=1    
+                #print dict1
+                self.indestrytimepool[industrydetail].insert(dict1)
 
-                for stockdaily in self.oriprice[tmpcode].find({"date": {"$gte": timehundrd,"$lt":timetoday}}).sort("date"):
-                    series["date"].append(stockdaily["date"])
-                    #这里读取后复权数据
-                    series["close"].append(stockdaily["adjust_price"]) 
-                    series["change"].append(stockdaily["change"])
+                todaydiff +=float(dict1['change'])*float(dict1['marketcap'])/100
+                summarket +=float(dict1['marketcap'])
+
+                if float(dict1['change']) >0:
+                     up+=1
+                if float(dict1['change']) <0:
+                    down+=1
 
                 
-                length = len(indexhistorydata)
+                if realTime.loc[tmpcode].PE_TTM > 0 and realTime.loc[tmpcode].PE_TTM < 1000:
+                    pen+=1
+                    totalpe +=realTime.loc[tmpcode].PE_TTM
+                if realTime.loc[tmpcode].PB > 0:
+                    pbn+=1
+                    totalpb +=realTime.loc[tmpcode].PB
+                if realTime.loc[tmpcode].PC_TTM > 0:
+                    pcn+=1
+                    totalpc +=realTime.loc[tmpcode].PC_TTM
+                if realTime.loc[tmpcode].PS_TTM > 0:
+                    psn+=1
+                    totalps +=realTime.loc[tmpcode].PS_TTM
 
-                for j in range(0,length):
-                    timestep=datetime.datetime.strptime(indexhistorydata.iloc[j].date, "%Y-%m-%d")            
-                    if (timestep in series["date"]) ==False:
-                        if j !=0:
-                            series["date"].insert(j,timestep) 
-                            series["close"].insert(j,series["close"][j-1]) 
-                            series["change"].insert(j,series["change"][j-1])
-                            
-                        else:
-                            series["date"].insert(j,timestep)
-
-                            # 没有数据
-                            if len(series["close"]) ==0:
-                                series["close"].insert(j,0)
-                                series["change"].insert(j,0)
-                            else:
-                                series["close"].insert(j,series["close"][0]) 
-                                series["change"].insert(j,series["change"][0])
-                        
-
-
-                totaldata=zip(series['close'],series["change"])
-                stockdf = pd.DataFrame(data=list(totaldata),index=series["date"],columns = ['close','change'])
-
-                #print stockdf
-
-                if(stockdf.iloc[-1].close !=0):
-                    stock_5day= (stockdf.iloc[-1].close-stockdf.iloc[-6].close)/stockdf.iloc[-1].close*100
-                    stock_10day=(stockdf.iloc[-1].close-stockdf.iloc[-11].close)/stockdf.iloc[-1].close*100
-                    stock_30day=(stockdf.iloc[-1].close-stockdf.iloc[-31].close)/stockdf.iloc[-1].close*100
-                    stock_90day=(stockdf.iloc[-1].close-stockdf.iloc[-91].close)/stockdf.iloc[-1].close*100
-                else:
-                    stock_5day=0
-                    stock_10day=0
-                    stock_30day=0
-                    stock_90day=0
-
-
-                
-                
-                if tmpcode in realTime.index:
-                    
-                    pe = realTime.loc[tmpcode].PE_TTM
-                    tmp = tusharedata.loc[tmpcode[2:8]].code
-                
-                
-                    if tmp not in tusharedata.index:
-                        print tmp +" not in tushare"
-                        continue
-
-                    name = tusharedata.loc[tmpcode[2:8]].stockname
-                    turnoverratio=float(realTime.loc[tmpcode].turnover)*100
-                    changepercent=float(realTime.loc[tmpcode].change)*100
-                    if changepercent >0:
-                        up+=1
-                    if changepercent <0:
-                        down+=1
-                    volume = realTime.loc[tmpcode].volume/10000
-                    makrket = float(realTime.loc[tmpcode].traded_market_value)/100000000
-                    pb = realTime.loc[tmpcode].PB
-                    pc = realTime.loc[tmpcode].PC_TTM
-                    ps = realTime.loc[tmpcode].PS_TTM
-
-                    n +=1
-
-                   
-                    dict1={"code":c,"name":name,"pe":pe,"pb":pb,"pc":pc,"ps":ps,"change":changepercent,"turnoverratio":turnoverratio,"volume":volume,"marketcap":makrket,"5day":stock_5day,"10day":stock_10day,"30day":stock_30day,"90day":stock_90day}
-                    todaydiff +=changepercent*makrket/100
-                    summarket +=makrket
-                    
-                    if pe > 0 and pe < 1000:
-                        pen+=1
-                        totalpe +=pe
-                    if pb > 0:
-                        pbn+=1
-                        totalpb +=pb
-                    if pc > 0:
-                        pcn+=1
-                        totalpc +=pc
-                    if ps > 0:
-                        psn+=1
-                        totalps +=ps
-                    #print dict1
-                    self.indestrytimepool[industrydetail].insert(dict1)
-                # else:
-                #     print tmpcode +" not in realTime index "
-                #     print code
-                #     print c
-                
-                    
+                                
             averagepe=totalpe/pen
             averagepb=totalpb/pbn
             averageps=totalps/psn
@@ -653,6 +512,23 @@ class DayOperation:
             today=time.strftime('%Y-%m-%d',time.localtime(time.time()))
             hundredyday=(datetime.datetime.now()-datetime.timedelta(days=150)).strftime("%Y-%m-%d")
 
+
+            #获取指数 过去一段时间的特性
+            indexhistorydata=ts.get_k_data(code='000001',index=True,start=hundredyday,end=today)
+            #print indexhistorydata
+            index_5day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-4].close)/indexhistorydata.iloc[-1].close*100
+            index_10day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-7].close)/indexhistorydata.iloc[-1].close*100
+            index_30day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-21].close)/indexhistorydata.iloc[-1].close*100
+            index_90day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-64].close)/indexhistorydata.iloc[-1].close*100
+
+
+            fiveday = indexhistorydata.iloc[-4].date
+            tenday = indexhistorydata.iloc[-7].date
+            thirtyday = indexhistorydata.iloc[-21].date
+            nightyday = indexhistorydata.iloc[-64].date
+
+
+
             indestrydetail = DataFrame(list(self.industryindex[indexname].find().sort("date")))
             names=['id','pe','time','value']
             indestrydetail.columns=names
@@ -661,20 +537,101 @@ class DayOperation:
             nowvalue = indestrydetail.iloc[-1].value*(1+todaydiff/summarket)
 
 
-            industry_5day= (nowvalue-indestrydetail.iloc[-6].value)/nowvalue*100
-            industry_10day=(nowvalue-indestrydetail.iloc[-11].value)/nowvalue*100
-            industry_30day=(nowvalue-indestrydetail.iloc[-31].value)/nowvalue*100
-            industry_90day=(nowvalue-indestrydetail.iloc[-91].value)/nowvalue*100
+            industry_5day= (nowvalue-indestrydetail.ix[fiveday].value)/nowvalue*100
+            industry_10day=(nowvalue-indestrydetail.ix[tenday].value)/nowvalue*100
+            industry_30day=(nowvalue-indestrydetail.ix[thirtyday].value)/nowvalue*100
+            industry_90day=(nowvalue-indestrydetail.ix[nightyday].value)/nowvalue*100
             
             mydict = {"ape":averagepe,"apb":averagepb,"aps":averageps,"apc":averagepc,"up":up,"down":down,"now":nowvalue,"diff":todaydiff/summarket*100,"5day":industry_5day,"10day":industry_10day,"30day":industry_30day,"90day":industry_90day}
             self.indestrytimepool[i].insert(mydict)
 
+
+    def getindexdata(self,indexcode):
+        today=time.strftime('%Y-%m-%d',time.localtime(time.time()))
+        hundredyday=(datetime.datetime.now()-datetime.timedelta(days=150)).strftime("%Y-%m-%d")
+
+        #获取指数 过去一段时间的特性
+        indexhistorydata=ts.get_k_data(code=indexcode,index=True,start=hundredyday,end=today)
+        #print indexhistorydata
+        index_5day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-4].close)/indexhistorydata.iloc[-1].close*100
+        index_10day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-7].close)/indexhistorydata.iloc[-1].close*100
+        index_30day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-21].close)/indexhistorydata.iloc[-1].close*100
+        index_90day=(indexhistorydata.iloc[-1].close-indexhistorydata.iloc[-64].close)/indexhistorydata.iloc[-1].close*100
+
+
+        fiveday = indexhistorydata.iloc[-4].date
+        tenday = indexhistorydata.iloc[-7].date
+        thirtyday = indexhistorydata.iloc[-21].date
+        nightyday = indexhistorydata.iloc[-64].date
+
+
+
+        fivedata= DataFrame(list(self.pricetime[fiveday].find()))
+        fivedata.index=fivedata.code
+
+        tendata=DataFrame(list(self.pricetime[tenday].find()))
+        tendata.index= tendata.code
+
+        thirtydata=DataFrame(list(self.pricetime[thirtyday].find()))
+        thirtydata.index=thirtydata.code
+
+        nightydata = DataFrame(list(self.pricetime[nightyday].find()))
+        nightydata.index = nightydata.code
+
+        return fivedata,tendata,thirtydata,nightydata
+
+
+        
+    def getstockdetail(self,realTime,tusharedata,fivedata,tendata,thirtydata,nightydata,tmpcode):
+        
+        # if tmpcode not in realTime.index:
+        #     print tmpcode +"not in realTime"
+
+        # if tmpcode not in fivedata.index:
+        #     print tmpcode+" not in fivedata"
+        
+        # if tmpcode not in tendata.index:
+        #     print tmpcode+" not in tendata"
+
+        
+        if  (tmpcode not in realTime.index) or (tmpcode not in fivedata.index) or (tmpcode not in tendata.index) or (tmpcode not in thirtydata.index) or (tmpcode not in nightydata.index):
+             #print realTime,fivedata
+             #print tmpcode +"not in "
+             return None
+
+        stock_5day=(realTime.ix[tmpcode].adjust_price-fivedata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
+        stock_10day=(realTime.ix[tmpcode].adjust_price-tendata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
+        stock_30day=(realTime.ix[tmpcode].adjust_price-thirtydata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
+        stock_90day=(realTime.ix[tmpcode].adjust_price-nightydata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
+                        
+            
+        pe = realTime.loc[tmpcode].PE_TTM
+        
+
+        name = tusharedata.loc[tmpcode[2:8]].stockname
+        turnoverratio=float(realTime.loc[tmpcode].turnover)*100
+        changepercent=float(realTime.loc[tmpcode].change)*100
+        volume = realTime.loc[tmpcode].volume/10000
+        makrket = float(realTime.loc[tmpcode].traded_market_value)/100000000
+        pb = realTime.loc[tmpcode].PB
+        pc = realTime.loc[tmpcode].PC_TTM
+        ps = realTime.loc[tmpcode].PS_TTM
+
+                    
+        dict1={"code":tmpcode[2:8],"name":name,"pe":pe,"pb":pb,"pc":pc,"ps":ps,"change":changepercent,"turnoverratio":turnoverratio,"volume":volume,"marketcap":makrket,"5day":stock_5day,"10day":stock_10day,"30day":stock_30day,"90day":stock_90day}
+
+        return dict1
+
+    # def computeSpecial(self):
+    #     nightycodes={"000333"}
+    #     for c in nightycodes:
+            
 if __name__ == '__main__':
     I=DayOperation(constants.IP,constants.PORT)
     I.Conn()
-    I.storagedayprice()
-    I.storagebyTime()
-    I.ComputeIndustryIndexDay()
+    #I.storagedayprice()
+    #I.storagebyTime()
+    #I.ComputeIndustryIndexDay()
     I.DeletePool()
     realTime,tusharedata,tushareindex=I.getReal()
     

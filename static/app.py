@@ -307,11 +307,12 @@ def stocksselect():
     codes=[]
     json_results = []
     for result in data1:
-        dapandata=mongo.db.client.basirealtimepool['dpdetail'].find({"code":result['code'][2:8]})
+        #print result
+        dapandata=mongo.db.client.basirealtimepool['dpdetail'].find({"code":result['code']})
         for d in dapandata:
             #print d
             if d['change']<=onedayup and d['change']>= onedaydown and d['5day'] <=fivedayup and d['5day']>= fivedaydown and d['10day'] <=tendayup and d['10day']>= tendaydown and d['30day'] <=thirtydayup and d['30day']>= thirtydaydown and d['90day'] <= nightydayup and d['90day']>= nightydaydown and d['turnoverratio']>=turnoverdown and d['turnoverratio']<= turnoverup and d['marketcap'] >= markedown and d['marketcap']<= marketup :
-                json_results.append({"code":d['code'],"change":round(d['change'],2),"stockname":d['name']})
+                json_results.append({"code":d['code'][2:8],"change":round(d['change'],2),"stockname":d['name']})
 
     
     return toJson(json_results)

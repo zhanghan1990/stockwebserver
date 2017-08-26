@@ -1,0 +1,28 @@
+app.py:3: ExtDeprecationWarning: Importing flask.ext.bootstrap is deprecated, use flask_bootstrap instead.
+  from flask.ext.bootstrap import Bootstrap
+app.py:4: ExtDeprecationWarning: Importing flask.ext.script is deprecated, use flask_script instead.
+  from flask.ext.script import Manager
+app.py:5: ExtDeprecationWarning: Importing flask.ext.moment is deprecated, use flask_moment instead.
+  from flask.ext.moment import Moment
+app.py:12: ExtDeprecationWarning: Importing flask.ext.pymongo is deprecated, use flask_pymongo instead.
+  from flask.ext.pymongo import PyMongo
+::ffff:96.231.24.167 - - [2017-08-26 13:02:14] "GET / HTTP/1.1" 200 34682 0.107815
+::ffff:96.231.24.167 - - [2017-08-26 13:02:14] "GET /static/sort.js HTTP/1.1" 200 14011 0.003599
+::ffff:96.231.24.167 - - [2017-08-26 13:02:16] "GET /static/favicon.png HTTP/1.1" 404 342 0.002451
+::ffff:96.231.24.167 - - [2017-08-26 13:02:25] "GET /industrylist/%E9%93%B6%E8%A1%8C HTTP/1.1" 200 18663 0.019812
+::ffff:96.231.24.167 - - [2017-08-26 13:02:45] "GET /select HTTP/1.1" 200 7473 0.005496
+::ffff:96.231.24.167 - - [2017-08-26 13:02:46] "GET /stocks/?peup=10&pedown=1&psup=10&psdown=1&pbdown=1&pbup=10&pcdown=1&pcup=10&onedayup=10&onedaydown=-10&fivedayup=10&fivedaydown=-10&tendayup=10&tendaydown=-10&thirtydayup=10&thirtydaydown=-10&nightydayup=10&nightydaydown=-10&marketdown=100&marketup=10000&turnoverdown=0&turnoverup=10 HTTP/1.1" 200 348 0.024927
+::ffff:96.231.24.167 - - [2017-08-26 13:02:48] "GET / HTTP/1.1" 200 34682 0.064057
+::ffff:96.231.24.167 - - [2017-08-26 13:03:21] "GET / HTTP/1.1" 200 34682 0.064125
+::ffff:96.231.24.167 - - [2017-08-26 13:03:22] "GET /select HTTP/1.1" 200 7473 0.001283
+::ffff:96.231.24.167 - - [2017-08-26 13:03:23] "GET / HTTP/1.1" 200 34682 0.063587
+::ffff:96.231.24.167 - - [2017-08-26 13:03:23] "GET /select HTTP/1.1" 200 7473 0.001294
+::ffff:96.231.24.167 - - [2017-08-26 13:03:24] "GET / HTTP/1.1" 200 34682 0.063889
+::ffff:96.231.24.167 - - [2017-08-26 13:03:28] "GET /select HTTP/1.1" 200 7473 0.001391
+::ffff:96.231.24.167 - - [2017-08-26 13:03:29] "GET / HTTP/1.1" 200 34682 0.063585
+::ffff:96.231.24.167 - - [2017-08-26 13:03:29] "GET /select HTTP/1.1" 200 7473 0.001326
+::ffff:96.231.24.167 - - [2017-08-26 13:03:31] "GET / HTTP/1.1" 200 34682 0.062768
+::ffff:96.231.24.167 - - [2017-08-26 13:03:32] "GET /select HTTP/1.1" 200 7473 0.001333
+::ffff:96.231.24.167 - - [2017-08-26 13:03:33] "GET / HTTP/1.1" 200 34682 0.062230
+::ffff:96.231.24.167 - - [2017-08-26 13:03:34] "GET /select HTTP/1.1" 200 7473 0.001368
+::ffff:96.231.24.167 - - [2017-08-26 13:03:34] "GET / HTTP/1.1" 200 34682 0.065522

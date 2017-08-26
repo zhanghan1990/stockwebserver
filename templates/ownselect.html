@@ -9,13 +9,13 @@
         <h4>价格因子</h4>
         <form class="form-inline">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="changedown" value="1" >
+                  <input type="text" class="form-control" id="1daydown" value="-10" >
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail2">&lt 1日涨跌幅 &lt</label>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="changeup" value="10">
+                  <input type="text" class="form-control" id="1dayup" value="10">
                 </div>
                 
         </form>
@@ -24,7 +24,7 @@
 
         <form class="form-inline">
           <div class="form-group">
-            <input type="text" class="form-control" id="5daydown" value="1" >
+            <input type="text" class="form-control" id="5daydown" value="-10" >
           </div>
           <div class="form-group">
             <label for="exampleInputEmail2">&lt 5日涨跌幅 &lt</label>
@@ -37,7 +37,7 @@
 
         <form class="form-inline">
           <div class="form-group">
-            <input type="text" class="form-control" id="10daydown" value="1" >
+            <input type="text" class="form-control" id="10daydown" value="-10" >
           </div>
           <div class="form-group">
             <label for="exampleInputEmail2">&lt 10日涨跌幅 &lt</label>
@@ -52,7 +52,7 @@
 
         <form class="form-inline">
           <div class="form-group">
-            <input type="text" class="form-control" id="30daydown" value="1" >
+            <input type="text" class="form-control" id="30daydown" value="-10" >
           </div>
           <div class="form-group">
             <label for="exampleInputEmail2">&lt 30日涨跌幅 &lt</label>
@@ -65,7 +65,7 @@
 
         <form class="form-inline">
           <div class="form-group">
-            <input type="text" class="form-control" id="90daydown" value="1" >
+            <input type="text" class="form-control" id="90daydown" value="-10" >
           </div>
           <div class="form-group">
             <label for="exampleInputEmail2">&lt 90日涨跌幅 &lt</label>
@@ -77,12 +77,32 @@
 
 
 
+        <h4>条件因子</h4>
+        <form class="form-inline">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="marketdown" value="100" >
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail2">&lt 流通市值(亿) &lt</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="marketup" value="10000">
+                </div>
+                
+        </form>
 
-
-
-
-
-
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control" id="turnoverdown" value="0" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">&lt 换手率(%) &lt</label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="turnoverup" value="10">
+          </div>
+          
+  </form>
 
 
         <h4>价值因子</h4>
