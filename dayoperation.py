@@ -23,6 +23,7 @@ from pandas import DataFrame
 import constants
 import math
 import time
+import numpy
 
 '''
  手动插入每天股票信息，每天进行操作，把当天的数据存入todaydata文件夹中，然后执行完本脚本以后，把
@@ -321,13 +322,13 @@ class DayOperation:
         # 中小板
         smallindexname='small'
         smalldetail='smalldetail'
-        self.insertDetail(realTime,tusharedata,tushareindex,'399005',smallindexname,smalldetail)
+        #self.insertDetail(realTime,tusharedata,tushareindex,'399005',smallindexname,smalldetail)
         
         
         # 创业板
         createindexname='create'
         createdetail='createdetail'
-        self.insertDetail(realTime,tusharedata,tushareindex,'399006',createindexname,createdetail)
+        #self.insertDetail(realTime,tusharedata,tushareindex,'399006',createindexname,createdetail)
         
 
 
@@ -347,7 +348,7 @@ class DayOperation:
             df=ts.get_gem_classified()
         elif indexcode =='000001':
             df=realTime
-
+	print df
 
         ape=0
         up =0
@@ -473,8 +474,6 @@ class DayOperation:
                 dict1=self.getstockdetail(realTime,tusharedata,fivedata,tendata,thirtydata,nightydata,tmpcode)
                 if dict1 == None:
                     continue
-                #n +=1    
-                #print dict1
                 self.indestrytimepool[industrydetail].insert(dict1)
 
                 todaydiff +=float(dict1['change'])*float(dict1['marketcap'])/100
@@ -583,30 +582,35 @@ class DayOperation:
 
         
     def getstockdetail(self,realTime,tusharedata,fivedata,tendata,thirtydata,nightydata,tmpcode):
-        
-        # if tmpcode not in realTime.index:
-        #     print tmpcode +"not in realTime"
-
-        # if tmpcode not in fivedata.index:
-        #     print tmpcode+" not in fivedata"
-        
-        # if tmpcode not in tendata.index:
-        #     print tmpcode+" not in tendata"
-
-        
-        if  (tmpcode not in realTime.index) or (tmpcode not in fivedata.index) or (tmpcode not in tendata.index) or (tmpcode not in thirtydata.index) or (tmpcode not in nightydata.index):
-             #print realTime,fivedata
-             #print tmpcode +"not in "
+        if  tmpcode not in realTime.index:
              return None
+        
+        if tmpcode not in fivedata.index:
+            stock_5day=numpy.nan
+        else:
+            stock_5day=(realTime.ix[tmpcode].adjust_price-fivedata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
+        
+        if tmpcode not in tendata.index:
+            stock_10day = numpy.nan
+        else:
+            stock_10day=(realTime.ix[tmpcode].adjust_price-tendata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
+        
+        if tmpcode not in thirtydata.index:
+            stock_30day = numpy.nan
+        else:
+            stock_30day=(realTime.ix[tmpcode].adjust_price-thirtydata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
 
-        stock_5day=(realTime.ix[tmpcode].adjust_price-fivedata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
-        stock_10day=(realTime.ix[tmpcode].adjust_price-tendata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
-        stock_30day=(realTime.ix[tmpcode].adjust_price-thirtydata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
-        stock_90day=(realTime.ix[tmpcode].adjust_price-nightydata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
+        if tmpcode not in nightydata.index:
+            stock_90day = numpy.nan
+        else:   
+            stock_90day=(realTime.ix[tmpcode].adjust_price-nightydata.ix[tmpcode].adjust_price)/realTime.ix[tmpcode].adjust_price*100
                         
             
         pe = realTime.loc[tmpcode].PE_TTM
         
+        if tmpcode[2:8] not in tusharedata.index:
+            
+            return None
 
         name = tusharedata.loc[tmpcode[2:8]].stockname
         turnoverratio=float(realTime.loc[tmpcode].turnover)*100
@@ -622,19 +626,41 @@ class DayOperation:
 
         return dict1
 
-    # def computeSpecial(self):
-    #     nightycodes={"000333"}
-    #     for c in nightycodes:
+    def computeSpecial(self,realTime,tusharedata):
+        nightycodes={"000333","600028","600104","600887","601288",\
+        "601006","601088","601088","600690","600309","600741","600585",\
+        "600660","600809","600018","601628","600518","600029","000568",\
+        "601988","000858","600023","601398","600795","600703","600900","600009",\
+        "600196","601607","601111","300072","601933","600688",\
+        "002475","600297","002027","600886","601366","000069","000423",\
+        "600019","601588","002271","000418","600436","002543","000063","600276","600872"\
+        "600132","600036","601601","603288","601225","002032","601939","300003","002508","000963",\
+        "002008","002415","000538","601318"}
+        fivedata,tendata,thirtydata,nightydata=self.getindexdata('000001')
+        
+        for code in nightycodes:
+            if code[0]=='3' or code[0]=='0':
+                tmp = 'sz'+code
+            elif code[0]=='6':
+                tmp='sh'+code
+            
+            dict1=self.getstockdetail(realTime,tusharedata,fivedata,tendata,thirtydata,nightydata,tmp)
+            print dict1
+
+            
+
+        
             
 if __name__ == '__main__':
     I=DayOperation(constants.IP,constants.PORT)
     I.Conn()
     #I.storagedayprice()
-    #I.storagebyTime()
+   #I.storagebyTime()
     #I.ComputeIndustryIndexDay()
     I.DeletePool()
     realTime,tusharedata,tushareindex=I.getReal()
     
     I.getToday(realTime,tusharedata,tushareindex)
     I.ComputeRealIndex(realTime,tusharedata,tushareindex)
+    #I.computeSpecial(realTime,tusharedata)
     I.Close()

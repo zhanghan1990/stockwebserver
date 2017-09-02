@@ -26,3 +26,272 @@ app.py:12: ExtDeprecationWarning: Importing flask.ext.pymongo is deprecated, use
 ::ffff:96.231.24.167 - - [2017-08-26 13:03:33] "GET / HTTP/1.1" 200 34682 0.062230
 ::ffff:96.231.24.167 - - [2017-08-26 13:03:34] "GET /select HTTP/1.1" 200 7473 0.001368
 ::ffff:96.231.24.167 - - [2017-08-26 13:03:34] "GET / HTTP/1.1" 200 34682 0.065522
+::ffff:96.231.24.167 - - [2017-08-26 13:05:04] "GET / HTTP/1.1" 200 34682 0.082052
+::ffff:96.231.24.167 - - [2017-08-26 13:05:05] "GET /select HTTP/1.1" 200 7473 0.001272
+::ffff:96.231.24.167 - - [2017-08-26 13:05:07] "GET / HTTP/1.1" 200 34682 0.062265
+::ffff:96.231.24.167 - - [2017-08-26 13:05:11] "GET / HTTP/1.1" 200 34682 0.064568
+::ffff:96.231.24.167 - - [2017-08-26 13:05:12] "GET /select HTTP/1.1" 200 7473 0.001332
+::ffff:96.231.24.167 - - [2017-08-26 13:05:13] "GET / HTTP/1.1" 200 34682 0.062726
+::ffff:96.231.24.167 - - [2017-08-26 13:07:25] "GET /select HTTP/1.1" 200 7473 0.001350
+::ffff:96.231.24.167 - - [2017-08-26 13:07:26] "GET / HTTP/1.1" 200 34682 0.065191
+::ffff:96.231.24.167 - - [2017-08-26 13:07:26] "GET /select HTTP/1.1" 200 7473 0.001284
+::ffff:96.231.24.167 - - [2017-08-26 13:07:27] "GET /select HTTP/1.1" 200 7473 0.001267
+::ffff:96.231.24.167 - - [2017-08-26 13:07:28] "GET /select HTTP/1.1" 200 7473 0.001303
+::ffff:96.231.24.167 - - [2017-08-26 13:07:29] "GET / HTTP/1.1" 200 34682 0.075951
+::ffff:96.231.24.167 - - [2017-08-26 13:07:30] "GET /select HTTP/1.1" 200 7473 0.001268
+::ffff:96.231.24.167 - - [2017-08-26 13:07:31] "GET / HTTP/1.1" 200 34682 0.064136
+::ffff:96.231.24.167 - - [2017-08-26 13:07:41] "GET /select HTTP/1.1" 200 7473 0.001294
+::ffff:96.231.24.167 - - [2017-08-26 13:07:47] "GET /select HTTP/1.1" 200 7473 0.001312
+::ffff:96.231.24.167 - - [2017-08-26 13:07:48] "GET / HTTP/1.1" 200 34682 0.061083
+<socket fileno=8>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.225.204 - - [2017-08-26 14:09:21] "JDWP-Handshake" 400 - 3.002941
+::ffff:117.136.38.173 - - [2017-08-26 17:58:58] "GET / HTTP/1.1" 200 34682 0.060560
+::ffff:117.136.38.173 - - [2017-08-26 17:58:58] "GET /static/sort.js HTTP/1.1" 200 14011 0.001443
+::ffff:117.136.38.173 - - [2017-08-26 18:00:11] "GET /industrylist/%E6%9C%8D%E8%A3%85%E5%AE%B6%E7%BA%BA HTTP/1.1" 200 29464 0.006335
+::ffff:117.136.38.173 - - [2017-08-26 18:00:17] "GET /indexlist/hz300detail HTTP/1.1" 200 120 0.275095
+::ffff:101.226.102.140 - - [2017-08-26 18:00:21] "GET /indexlist/hz300detail?nsukey=rjC0KZJZsLBwVc5u4kJEFhuoT2bE9%2BLWMmkYqolR1XyAfStYgFBvGoB2Y81rMd6D7H%2BQFk%2Fb3hQDce5fJiVmk5pZ4FLfRjWrTrL5oblbZjxavMRXxxJCAhi8OPvl2JNEcMowMIcfcH1r%2Bi72ZDY%2BWEJB3lAY6F6QlPJu5sOCzAQAMGhvoa623mr66ANuGbr4 HTTP/1.1" 200 169352 0.095223
+::ffff:101.226.93.241 - - [2017-08-26 18:00:22] "GET /indexlist/hz300detail?nsukey=rjC0KZJZsLBwVc5u4kJEFhuoT2bE9%2BLWMmkYqolR1XyAfStYgFBvGoB2Y81rMd6D7H%2BQFk%2Fb3hQDce5fJiVmk5pZ4FLfRjWrTrL5oblbZjxavMRXxxJCAhi8OPvl2JNEcMowMIcfcH1r%2Bi72ZDY%2BWEJB3lAY6F6QlPJu5sOCzAQAMGhvoa623mr66ANuGbr4 HTTP/1.1" 200 169352 0.092231
+::ffff:101.226.125.18 - - [2017-08-26 18:00:23] "GET /static/sort.js HTTP/1.1" 200 14011 0.001088
+::ffff:117.136.38.173 - - [2017-08-26 18:00:25] "GET /indexlist/hz300detail?nsukey=rjC0KZJZsLBwVc5u4kJEFhuoT2bE9%2BLWMmkYqolR1XyAfStYgFBvGoB2Y81rMd6D7H%2BQFk%2Fb3hQDce5fJiVmk5pZ4FLfRjWrTrL5oblbZjxavMRXxxJCAhi8OPvl2JNEcMowMIcfcH1r%2Bi72ZDY%2BWEJB3lAY6F6QlPJu5sOCzAQAMGhvoa623mr66ANuGbr4 HTTP/1.1" 200 169352 0.239911
+::ffff:117.185.27.113 - - [2017-08-26 18:00:31] "GET /indexlist/hz300detail?nsukey=rjC0KZJZsLBwVc5u4kJEFhuoT2bE9%2BLWMmkYqolR1XyAfStYgFBvGoB2Y81rMd6D7H%2BQFk%2Fb3hQDce5fJiVmk5pZ4FLfRjWrTrL5oblbZjxavMRXxxJCAhi8OPvl2JNEcMowMIcfcH1r%2Bi72ZDY%2BWEJB3lAY6F6QlPJu5sOCzAQAMGhvoa623mr66ANuGbr4 HTTP/1.1" 200 169352 0.095505
+::ffff:117.185.27.113 - - [2017-08-26 18:00:32] "GET /static/sort.js HTTP/1.1" 200 14011 0.001074
+::ffff:101.226.102.145 - - [2017-08-26 18:01:51] "GET /?nsukey=91MF%2B0DdyjFuTlXmvUotDbqAV52jYgnqNkqbiqg6UB7pHL0JTh3kCBQntPvT9sIss1bb%2FzkvtCWAFbRkZSnD9MWjJG0rxBv3favnolGLBlOhsBE0wi1wKYGBGhRaPuyqgMdE8j8p9aA6ckwZv04WkFZe3qEbwxNWEaMN2WWCfqDI3IIY74Pk9FnxA4CRE%2FRe HTTP/1.1" 200 34682 0.062537
+::ffff:101.226.125.14 - - [2017-08-26 18:01:52] "GET /?nsukey=91MF%2B0DdyjFuTlXmvUotDbqAV52jYgnqNkqbiqg6UB7pHL0JTh3kCBQntPvT9sIss1bb%2FzkvtCWAFbRkZSnD9MWjJG0rxBv3favnolGLBlOhsBE0wi1wKYGBGhRaPuyqgMdE8j8p9aA6ckwZv04WkFZe3qEbwxNWEaMN2WWCfqDI3IIY74Pk9FnxA4CRE%2FRe HTTP/1.1" 200 34682 0.062369
+::ffff:117.136.38.173 - - [2017-08-26 18:01:53] "GET /?nsukey=91MF%2B0DdyjFuTlXmvUotDbqAV52jYgnqNkqbiqg6UB7pHL0JTh3kCBQntPvT9sIss1bb%2FzkvtCWAFbRkZSnD9MWjJG0rxBv3favnolGLBlOhsBE0wi1wKYGBGhRaPuyqgMdE8j8p9aA6ckwZv04WkFZe3qEbwxNWEaMN2WWCfqDI3IIY74Pk9FnxA4CRE%2FRe HTTP/1.1" 200 34682 0.060999
+::ffff:117.185.27.115 - - [2017-08-26 18:02:01] "GET /?nsukey=91MF%2B0DdyjFuTlXmvUotDbqAV52jYgnqNkqbiqg6UB7pHL0JTh3kCBQntPvT9sIss1bb%2FzkvtCWAFbRkZSnD9MWjJG0rxBv3favnolGLBlOhsBE0wi1wKYGBGhRaPuyqgMdE8j8p9aA6ckwZv04WkFZe3qEbwxNWEaMN2WWCfqDI3IIY74Pk9FnxA4CRE%2FRe HTTP/1.1" 200 34682 0.059658
+::ffff:117.185.27.115 - - [2017-08-26 18:02:01] "GET /static/sort.js HTTP/1.1" 200 14011 0.001047
+::ffff:117.136.38.173 - - [2017-08-26 18:02:08] "GET /?nsukey=91MF%2B0DdyjFuTlXmvUotDbqAV52jYgnqNkqbiqg6UB7pHL0JTh3kCBQntPvT9sIss1bb%2FzkvtCWAFbRkZSnD9MWjJG0rxBv3favnolGLBlOhsBE0wi1wKYGBGhRaPuyqgMdE8j8p9aA6ckwZv04WkFZe3qEbwxNWEaMN2WWCfqDI3IIY74Pk9FnxA4CRE%2FRe HTTP/1.1" 200 34682 0.062530
+::ffff:117.136.38.173 - - [2017-08-26 18:02:09] "GET /static/sort.js HTTP/1.1" 200 14011 0.001089
+::ffff:117.136.38.173 - - [2017-08-26 18:02:10] "GET /static/favicon.png HTTP/1.1" 404 342 0.000766
+::ffff:117.185.27.115 - - [2017-08-26 18:02:13] "GET /?nsukey=91MF%2B0DdyjFuTlXmvUotDbqAV52jYgnqNkqbiqg6UB7pHL0JTh3kCBQntPvT9sIss1bb%2FzkvtCWAFbRkZSnD9MWjJG0rxBv3favnolGLBlOhsBE0wi1wKYGBGhRaPuyqgMdE8j8p9aA6ckwZv04WkFZe3qEbwxNWEaMN2WWCfqDI3IIY74Pk9FnxA4CRE%2FRe HTTP/1.1" 200 34682 0.083425
+::ffff:117.185.27.115 - - [2017-08-26 18:02:13] "GET /static/sort.js HTTP/1.1" 200 14011 0.001102
+::ffff:117.136.38.173 - - [2017-08-26 18:02:20] "GET / HTTP/1.1" 200 34682 0.069009
+::ffff:117.136.38.173 - - [2017-08-26 18:02:25] "GET /select HTTP/1.1" 200 7473 0.001265
+::ffff:117.136.38.173 - - [2017-08-26 18:02:25] "GET /static/stock.js HTTP/1.1" 200 3657 0.001073
+::ffff:117.136.38.173 - - [2017-08-26 18:02:43] "GET / HTTP/1.1" 200 34682 0.061209
+::ffff:117.136.38.173 - - [2017-08-26 18:13:25] "GET / HTTP/1.1" 200 34682 0.061088
+::ffff:117.136.38.173 - - [2017-08-26 18:13:33] "GET / HTTP/1.1" 200 34682 0.060955
+::ffff:96.231.24.167 - - [2017-08-26 20:25:18] "GET / HTTP/1.1" 200 34682 0.060397
+::ffff:96.231.24.167 - - [2017-08-26 20:34:49] "GET / HTTP/1.1" 200 34682 0.062814
+::ffff:96.231.24.167 - - [2017-08-26 20:35:15] "GET / HTTP/1.1" 200 34682 0.063949
+::ffff:96.231.24.167 - - [2017-08-26 20:35:50] "GET /industrylist/%E9%80%A0%E7%BA%B8 HTTP/1.1" 200 16214 0.004472
+::ffff:96.231.24.167 - - [2017-08-26 20:36:15] "GET / HTTP/1.1" 200 34682 0.060558
+::ffff:96.231.24.167 - - [2017-08-26 20:36:16] "GET /select HTTP/1.1" 200 7473 0.001290
+::ffff:96.231.24.167 - - [2017-08-26 22:16:09] "GET / HTTP/1.1" 200 34682 0.063782
+::ffff:96.231.24.167 - - [2017-08-26 22:16:10] "GET /select HTTP/1.1" 200 7473 0.001270
+::ffff:96.231.24.167 - - [2017-08-26 22:16:11] "GET / HTTP/1.1" 200 34682 0.060355
+::ffff:96.231.24.167 - - [2017-08-26 22:36:16] "GET / HTTP/1.1" 200 34682 0.066325
+<socket fileno=11>: Invalid HTTP method: 'r\xfe\x1d\x13\x00\x00\x00\x00\x00\x00\x00\x02\x00\x01\x86\xa0\x00\x01\x97|\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+::ffff:47.88.34.88 - - [2017-08-27 02:16:47] "rþ        †  —|                    " 400 - 3.818290
+::ffff:96.231.24.167 - - [2017-08-27 02:45:27] "GET / HTTP/1.1" 200 34682 0.066910
+::ffff:96.231.24.167 - - [2017-08-27 02:45:27] "GET /static/sort.js HTTP/1.1" 304 206 0.001265
+::ffff:96.231.24.167 - - [2017-08-27 02:45:29] "GET /static/favicon.png HTTP/1.1" 404 342 0.000766
+::ffff:96.231.24.167 - - [2017-08-27 03:41:33] "GET / HTTP/1.1" 200 34682 0.062736
+::ffff:169.54.233.126 - - [2017-08-27 05:03:42] "GET / HTTP/1.0" 200 34701 15.451761
+::ffff:117.136.38.173 - - [2017-08-27 07:13:16] "GET / HTTP/1.1" 200 34682 0.082694
+::ffff:117.136.38.173 - - [2017-08-27 07:13:19] "GET /select HTTP/1.1" 200 7473 0.001309
+::ffff:117.136.38.173 - - [2017-08-27 07:13:20] "GET / HTTP/1.1" 200 34682 0.062096
+::ffff:117.136.38.173 - - [2017-08-27 07:13:21] "GET /?nsukey=91MF%2B0DdyjFuTlXmvUotDbqAV52jYgnqNkqbiqg6UB7pHL0JTh3kCBQntPvT9sIss1bb%2FzkvtCWAFbRkZSnD9MWjJG0rxBv3favnolGLBlOhsBE0wi1wKYGBGhRaPuyqgMdE8j8p9aA6ckwZv04WkFZe3qEbwxNWEaMN2WWCfqDI3IIY74Pk9FnxA4CRE%2FRe HTTP/1.1" 200 34682 0.059524
+::ffff:101.37.84.41 - - [2017-08-27 08:42:17] "GET / HTTP/1.0" 200 34701 0.060960
+::ffff:96.231.24.167 - - [2017-08-27 09:50:34] "GET / HTTP/1.1" 200 34682 0.061830
+::ffff:96.231.24.167 - - [2017-08-27 09:50:39] "GET /select HTTP/1.1" 200 7473 0.001290
+::ffff:96.231.24.167 - - [2017-08-27 09:50:39] "GET /static/stock.js HTTP/1.1" 304 205 0.001139
+::ffff:96.231.24.167 - - [2017-08-27 09:50:41] "GET /stocks/?peup=10&pedown=1&psup=10&psdown=1&pbdown=1&pbup=10&pcdown=1&pcup=10&onedayup=10&onedaydown=-10&fivedayup=10&fivedaydown=-10&tendayup=10&tendaydown=-10&thirtydayup=10&thirtydaydown=-10&nightydayup=10&nightydaydown=-10&marketdown=100&marketup=10000&turnoverdown=0&turnoverup=10 HTTP/1.1" 200 348 0.023193
+::ffff:96.231.24.167 - - [2017-08-27 09:50:43] "GET / HTTP/1.1" 200 34682 0.062528
+::ffff:96.231.24.167 - - [2017-08-27 10:00:35] "GET /select HTTP/1.1" 200 7473 0.001300
+::ffff:96.231.24.167 - - [2017-08-27 10:00:36] "GET / HTTP/1.1" 200 34682 0.060400
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.225.194 - - [2017-08-27 11:37:37] "JDWP-Handshake" 400 - 3.003095
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.225.192 - - [2017-08-27 16:59:42] "JDWP-Handshake" 400 - 3.002922
+::ffff:96.231.24.167 - - [2017-08-27 23:01:55] "GET / HTTP/1.1" 200 34682 0.061781
+::ffff:96.231.24.167 - - [2017-08-27 23:01:56] "GET /static/sort.js HTTP/1.1" 304 206 0.001155
+::ffff:96.231.24.167 - - [2017-08-27 23:01:56] "GET /static/favicon.png HTTP/1.1" 404 342 0.000738
+::ffff:96.231.24.167 - - [2017-08-27 23:02:00] "GET /select HTTP/1.1" 200 7473 0.001313
+::ffff:96.231.24.167 - - [2017-08-27 23:02:00] "GET /static/stock.js HTTP/1.1" 304 205 0.001084
+::ffff:96.231.24.167 - - [2017-08-27 23:02:01] "GET / HTTP/1.1" 200 34682 0.060188
+::ffff:96.231.24.167 - - [2017-08-27 23:02:02] "GET /select HTTP/1.1" 200 7473 0.001296
+::ffff:96.231.24.167 - - [2017-08-27 23:02:03] "GET / HTTP/1.1" 200 34682 0.062359
+::ffff:96.231.24.167 - - [2017-08-27 23:02:04] "GET / HTTP/1.1" 200 34682 0.061252
+::ffff:96.231.24.167 - - [2017-08-27 23:02:05] "GET /select HTTP/1.1" 200 7473 0.001290
+::ffff:96.231.24.167 - - [2017-08-27 23:02:07] "GET /select HTTP/1.1" 200 7473 0.001308
+::ffff:96.231.24.167 - - [2017-08-27 23:02:08] "GET / HTTP/1.1" 200 34682 0.063389
+::ffff:96.231.24.167 - - [2017-08-27 23:02:09] "GET /select HTTP/1.1" 200 7473 0.001268
+::ffff:96.231.24.167 - - [2017-08-27 23:02:10] "GET / HTTP/1.1" 200 34682 0.101423
+::ffff:96.231.24.167 - - [2017-08-27 23:02:11] "GET /select HTTP/1.1" 200 7473 0.001259
+::ffff:96.231.24.167 - - [2017-08-27 23:02:12] "GET / HTTP/1.1" 200 34682 0.063556
+<socket fileno=11>: Invalid HTTP method: 'r\xfe\x1d\x13\x00\x00\x00\x00\x00\x00\x00\x02\x00\x01\x86\xa0\x00\x01\x97|\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+::ffff:47.88.34.88 - - [2017-08-28 03:07:47] "rþ        †  —|                    " 400 - 3.817493
+::ffff:96.231.24.167 - - [2017-08-28 08:36:58] "GET / HTTP/1.1" 200 34682 0.060245
+::ffff:119.23.154.193 - - [2017-08-28 08:57:51] "GET / HTTP/1.0" 200 34701 0.083415
+::ffff:96.231.24.167 - - [2017-08-28 09:10:49] "GET / HTTP/1.1" 200 34645 0.061991
+::ffff:96.231.24.167 - - [2017-08-28 09:10:53] "GET /indexlist/szdetail HTTP/1.1" 200 31385 0.006447
+::ffff:96.231.24.167 - - [2017-08-28 09:11:04] "GET / HTTP/1.1" 200 34645 0.061521
+::ffff:96.231.24.167 - - [2017-08-28 09:11:09] "GET /indexlist/szdetail HTTP/1.1" 200 31385 0.006533
+::ffff:96.231.24.167 - - [2017-08-28 09:11:27] "GET / HTTP/1.1" 200 34645 0.065523
+::ffff:96.231.24.167 - - [2017-08-28 09:11:30] "GET /indexlist/szdetail HTTP/1.1" 200 31385 0.006517
+::ffff:96.231.24.167 - - [2017-08-28 09:22:57] "GET / HTTP/1.1" 200 34663 0.064588
+::ffff:96.231.24.167 - - [2017-08-28 09:23:01] "GET /indexlist/szdetail HTTP/1.1" 200 31987 0.006469
+::ffff:96.231.24.167 - - [2017-08-28 09:23:30] "GET / HTTP/1.1" 200 34663 0.063297
+::ffff:96.231.24.167 - - [2017-08-28 09:23:40] "GET /industrylist/%E6%9C%8D%E8%A3%85%E5%AE%B6%E7%BA%BA HTTP/1.1" 200 30704 0.006568
+::ffff:96.231.24.167 - - [2017-08-28 09:23:58] "GET /industrylist/%E9%92%A2%E9%93%81 HTTP/1.1" 200 20069 0.004896
+::ffff:96.231.24.167 - - [2017-08-28 09:24:21] "GET /industrylist/%E9%80%9A%E7%94%A8%E8%AE%BE%E5%A4%87 HTTP/1.1" 200 83493 0.505850
+::ffff:96.231.24.167 - - [2017-08-28 09:24:44] "GET /indexlist/hz300detail HTTP/1.1" 200 178078 0.028790
+::ffff:96.231.24.167 - - [2017-08-28 09:25:17] "GET /indexlist/szdetail HTTP/1.1" 200 31987 0.006525
+::ffff:96.231.24.167 - - [2017-08-28 09:25:39] "GET / HTTP/1.1" 200 34663 0.063816
+::ffff:96.231.24.167 - - [2017-08-28 09:27:17] "GET / HTTP/1.1" 200 34663 0.064009
+::ffff:96.231.24.167 - - [2017-08-28 10:00:52] "GET /indexlist/szdetail HTTP/1.1" 200 31987 0.006652
+::ffff:96.231.24.167 - - [2017-08-28 10:03:22] "GET / HTTP/1.1" 200 34663 0.066241
+::ffff:96.231.24.167 - - [2017-08-28 10:03:33] "GET /indexlist/dpdetail HTTP/1.1" 200 1972953 3.988345
+::ffff:96.231.24.167 - - [2017-08-28 10:10:12] "GET / HTTP/1.1" 200 34663 0.066743
+::ffff:96.231.24.167 - - [2017-08-28 10:10:15] "GET /indexlist/szdetail HTTP/1.1" 200 31987 0.006416
+::ffff:96.231.24.167 - - [2017-08-28 10:10:26] "GET / HTTP/1.1" 200 34663 0.066158
+::ffff:96.231.24.167 - - [2017-08-28 10:10:28] "GET /indexlist/szdetail HTTP/1.1" 200 31987 0.006478
+::ffff:96.231.24.167 - - [2017-08-28 10:10:56] "GET / HTTP/1.1" 200 34663 0.064684
+::ffff:96.231.24.167 - - [2017-08-28 10:36:25] "GET / HTTP/1.1" 200 34663 0.084225
+::ffff:96.231.24.167 - - [2017-08-28 10:36:32] "GET /select HTTP/1.1" 200 7473 0.001269
+::ffff:96.231.24.167 - - [2017-08-28 10:36:34] "GET / HTTP/1.1" 200 34663 0.063961
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.201.35 - - [2017-08-28 17:29:07] "JDWP-Handshake" 400 - 3.002084
+::ffff:96.231.24.167 - - [2017-08-28 22:21:12] "GET / HTTP/1.1" 200 3194 0.002438
+::ffff:96.231.24.167 - - [2017-08-28 22:21:12] "GET /static/sort.js HTTP/1.1" 304 206 0.013128
+::ffff:96.231.24.167 - - [2017-08-28 22:21:14] "GET / HTTP/1.1" 200 3194 0.002256
+::ffff:96.231.24.167 - - [2017-08-28 22:21:16] "GET / HTTP/1.1" 200 3194 0.002323
+::ffff:96.231.24.167 - - [2017-08-28 22:21:25] "GET / HTTP/1.1" 200 3194 0.002339
+<socket fileno=11>: Invalid HTTP method: 'r\xfe\x1d\x13\x00\x00\x00\x00\x00\x00\x00\x02\x00\x01\x86\xa0\x00\x01\x97|\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+::ffff:119.23.150.148 - - [2017-08-29 02:42:24] "rþ        †  —|                    " 400 - 3.998132
+<socket fileno=11>: Invalid HTTP method: 'h2\x002\x00h\xc9\x05\x086\x01\x00\x02r\x00\x00\x01\x00\x82\x16'
+::ffff:188.138.125.155 - - [2017-08-29 08:32:58] "h2 2 hÉ6 r   ‚" 400 - 13.672546
+::ffff:101.37.16.253 - - [2017-08-29 08:50:32] "GET / HTTP/1.0" 200 3213 0.002230
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.201.37 - - [2017-08-29 11:55:57] "JDWP-Handshake" 400 - 3.003086
+::ffff:96.231.24.167 - - [2017-08-29 11:59:51] "GET / HTTP/1.1" 200 3194 0.002231
+::ffff:96.231.24.167 - - [2017-08-29 11:59:51] "GET /static/sort.js HTTP/1.1" 200 14011 0.001435
+::ffff:96.231.24.167 - - [2017-08-29 11:59:52] "GET /static/favicon.png HTTP/1.1" 404 342 0.000763
+::ffff:96.231.24.167 - - [2017-08-29 11:59:54] "GET /select HTTP/1.1" 200 7473 0.001283
+::ffff:96.231.24.167 - - [2017-08-29 11:59:54] "GET /static/stock.js HTTP/1.1" 200 3657 0.021109
+::ffff:96.231.24.167 - - [2017-08-29 11:59:55] "GET / HTTP/1.1" 200 3194 0.002330
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.225.191 - - [2017-08-29 15:03:57] "JDWP-Handshake" 400 - 3.002261
+::ffff:118.190.88.57 - - [2017-08-29 16:32:54] "GET / HTTP/1.0" 200 3213 0.002310
+::ffff:47.88.32.165 - - [2017-08-29 21:19:53] "GET / HTTP/1.0" 200 3213 0.002292
+::ffff:47.88.34.88 - - [2017-08-29 23:38:04] "GET / HTTP/1.0" 200 3213 0.002380
+<socket fileno=11>: Invalid HTTP method: 'r\xfe\x1d\x13\x00\x00\x00\x00\x00\x00\x00\x02\x00\x01\x86\xa0\x00\x01\x97|\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+::ffff:106.14.19.151 - - [2017-08-30 02:05:53] "rþ        †  —|                    " 400 - 3.973344
+::ffff:106.15.103.239 - - [2017-08-30 08:52:57] "GET / HTTP/1.0" 200 3213 0.002294
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.201.31 - - [2017-08-30 09:38:47] "JDWP-Handshake" 400 - 3.003197
+::ffff:108.48.27.54 - - [2017-08-30 11:44:16] "GET / HTTP/1.1" 200 3194 0.002228
+::ffff:108.48.27.54 - - [2017-08-30 11:44:17] "GET /static/sort.js HTTP/1.1" 304 206 0.001632
+::ffff:108.48.27.54 - - [2017-08-30 11:44:17] "GET /static/favicon.png HTTP/1.1" 404 342 0.000748
+::ffff:108.48.27.54 - - [2017-08-30 11:44:20] "GET / HTTP/1.1" 200 3194 0.002229
+::ffff:169.54.233.123 - - [2017-08-30 12:18:58] "GET / HTTP/1.0" 200 3213 0.002259
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.201.31 - - [2017-08-30 14:58:53] "JDWP-Handshake" 400 - 3.003085
+::ffff:108.48.27.54 - - [2017-08-30 20:51:35] "GET / HTTP/1.1" 200 34760 0.067102
+::ffff:108.48.27.54 - - [2017-08-30 20:51:36] "GET /static/favicon.png HTTP/1.1" 404 342 0.024288
+::ffff:108.48.27.54 - - [2017-08-30 20:51:41] "GET /indexlist/szdetail HTTP/1.1" 200 32068 0.006599
+::ffff:108.48.27.54 - - [2017-08-30 20:54:17] "GET /select HTTP/1.1" 200 7473 0.001262
+::ffff:108.48.27.54 - - [2017-08-30 20:54:18] "GET /static/stock.js HTTP/1.1" 206 349 0.001475
+::ffff:108.48.27.54 - - [2017-08-30 20:54:19] "GET /static/stock.js HTTP/1.1" 206 810 0.001141
+::ffff:108.48.27.54 - - [2017-08-30 20:54:22] "GET /stocks/?peup=10&pedown=1&psup=10&psdown=1&pbdown=1&pbup=10&pcdown=1&pcup=10&onedayup=10&onedaydown=-10&fivedayup=10&fivedaydown=-10&tendayup=10&tendaydown=-10&thirtydayup=10&thirtydaydown=-10&nightydayup=10&nightydaydown=-10&marketdown=100&marketup=10000&turnoverdown=0&turnoverup=10 HTTP/1.1" 200 348 0.029401
+::ffff:108.48.27.54 - - [2017-08-30 20:54:26] "GET / HTTP/1.1" 200 34760 0.064485
+::ffff:108.48.27.54 - - [2017-08-30 20:54:28] "GET /select HTTP/1.1" 200 7473 0.001259
+::ffff:108.48.27.54 - - [2017-08-30 20:54:29] "GET / HTTP/1.1" 200 34760 0.065752
+::ffff:108.48.27.54 - - [2017-08-30 20:54:30] "GET /select HTTP/1.1" 200 7473 0.001288
+::ffff:108.48.27.54 - - [2017-08-30 20:54:31] "GET / HTTP/1.1" 200 34760 0.064865
+::ffff:108.48.27.54 - - [2017-08-30 21:00:32] "GET / HTTP/1.1" 200 34760 0.065146
+::ffff:108.48.27.54 - - [2017-08-30 21:00:33] "GET /select HTTP/1.1" 200 7473 0.001300
+::ffff:108.48.27.54 - - [2017-08-30 21:00:35] "GET /select HTTP/1.1" 200 7473 0.001294
+::ffff:108.48.27.54 - - [2017-08-30 21:00:37] "GET / HTTP/1.1" 200 34760 0.070072
+::ffff:108.48.27.54 - - [2017-08-30 21:00:38] "GET / HTTP/1.1" 200 34760 0.063167
+::ffff:108.48.27.54 - - [2017-08-30 21:00:40] "GET /select HTTP/1.1" 200 7473 0.001324
+app.py:3: ExtDeprecationWarning: Importing flask.ext.bootstrap is deprecated, use flask_bootstrap instead.
+  from flask.ext.bootstrap import Bootstrap
+app.py:4: ExtDeprecationWarning: Importing flask.ext.script is deprecated, use flask_script instead.
+  from flask.ext.script import Manager
+app.py:5: ExtDeprecationWarning: Importing flask.ext.moment is deprecated, use flask_moment instead.
+  from flask.ext.moment import Moment
+app.py:12: ExtDeprecationWarning: Importing flask.ext.pymongo is deprecated, use flask_pymongo instead.
+  from flask.ext.pymongo import PyMongo
+::ffff:108.48.27.54 - - [2017-08-31 08:17:42] "GET / HTTP/1.1" 200 34463 0.109546
+::ffff:108.48.27.54 - - [2017-08-31 08:17:44] "GET /select HTTP/1.1" 200 7176 0.005288
+::ffff:108.48.27.54 - - [2017-08-31 08:17:45] "GET /research HTTP/1.1" 200 2472 0.003502
+::ffff:108.48.27.54 - - [2017-08-31 08:17:46] "GET / HTTP/1.1" 200 34463 0.065149
+::ffff:108.48.27.54 - - [2017-08-31 08:20:57] "GET /research HTTP/1.1" 200 2472 0.001092
+::ffff:108.48.27.54 - - [2017-08-31 08:20:58] "GET / HTTP/1.1" 200 34463 0.067086
+::ffff:108.48.27.54 - - [2017-08-31 08:20:59] "GET /select HTTP/1.1" 200 7176 0.001065
+::ffff:108.48.27.54 - - [2017-08-31 08:21:00] "GET /research HTTP/1.1" 200 2472 0.001208
+::ffff:108.48.27.54 - - [2017-08-31 08:21:02] "GET / HTTP/1.1" 200 34463 0.064237
+::ffff:108.48.27.54 - - [2017-08-31 08:21:03] "GET /research HTTP/1.1" 200 2472 0.001036
+::ffff:108.48.27.54 - - [2017-08-31 08:21:05] "GET / HTTP/1.1" 200 34463 0.066329
+::ffff:108.48.27.54 - - [2017-08-31 08:21:05] "GET /select HTTP/1.1" 200 7176 0.001096
+::ffff:108.48.27.54 - - [2017-08-31 08:21:06] "GET /research HTTP/1.1" 200 2472 0.001120
+::ffff:108.48.27.54 - - [2017-08-31 08:21:08] "GET / HTTP/1.1" 200 34463 0.092618
+::ffff:108.48.27.54 - - [2017-08-31 08:26:11] "GET /research HTTP/1.1" 200 2472 0.001037
+::ffff:108.48.27.54 - - [2017-08-31 08:26:13] "GET /select HTTP/1.1" 200 7176 0.001073
+::ffff:108.48.27.54 - - [2017-08-31 08:26:14] "GET / HTTP/1.1" 200 34463 0.064601
+::ffff:108.48.27.54 - - [2017-08-31 08:26:17] "GET /research HTTP/1.1" 200 2472 0.001055
+::ffff:108.48.27.54 - - [2017-08-31 11:00:28] "GET / HTTP/1.1" 200 34463 0.066882
+::ffff:108.48.27.54 - - [2017-08-31 11:00:30] "GET /indexlist/szdetail HTTP/1.1" 200 31771 0.034954
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.225.191 - - [2017-08-31 12:16:04] "JDWP-Handshake" 400 - 3.003108
+<socket fileno=11>: Invalid HTTP method: 'JDWP-Handshake'
+::ffff:140.205.225.201 - - [2017-08-31 15:55:50] "JDWP-Handshake" 400 - 3.000240
+::ffff:108.48.27.54 - - [2017-08-31 22:51:03] "GET /indexlist/szdetail HTTP/1.1" 200 31771 0.006666
+::ffff:108.48.27.54 - - [2017-08-31 22:51:03] "GET /static/sort.js HTTP/1.1" 304 206 0.027951
+::ffff:108.48.27.54 - - [2017-08-31 22:51:05] "GET /research HTTP/1.1" 200 2472 0.001041
+::ffff:108.48.27.54 - - [2017-08-31 22:51:05] "GET /static/ace.js HTTP/1.1" 304 206 0.001137
+::ffff:108.48.27.54 - - [2017-08-31 22:51:06] "GET /static/theme-monokai.js HTTP/1.1" 304 205 0.006303
+::ffff:108.48.27.54 - - [2017-08-31 22:51:06] "GET /static/mode-python.js HTTP/1.1" 304 205 0.000765
+<socket fileno=11>: Invalid HTTP method: 'r\xfe\x1d\x13\x00\x00\x00\x00\x00\x00\x00\x02\x00\x01\x86\xa0\x00\x01\x97|\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+::ffff:106.14.19.151 - - [2017-09-01 02:03:52] "rþ        †  —|                    " 400 - 3.969559
+::ffff:108.48.27.54 - - [2017-09-01 06:05:09] "GET / HTTP/1.1" 200 34463 0.064577
+::ffff:108.48.27.54 - - [2017-09-01 06:05:09] "GET /static/sort.js HTTP/1.1" 200 14011 0.011752
+::ffff:108.48.27.54 - - [2017-09-01 06:05:10] "GET /favicon.ico HTTP/1.1" 404 342 0.014277
+::ffff:108.48.27.54 - - [2017-09-01 06:05:12] "GET /research HTTP/1.1" 200 2472 0.001020
+::ffff:108.48.27.54 - - [2017-09-01 06:05:17] "GET /static/ace.js HTTP/1.1" 200 678283 4.194468
+::ffff:108.48.27.54 - - [2017-09-01 06:05:19] "GET /static/mode-python.js HTTP/1.1" 200 9017 0.015879
+::ffff:108.48.27.54 - - [2017-09-01 06:05:19] "GET /static/theme-monokai.js HTTP/1.1" 200 2947 0.016821
+::ffff:108.48.27.54 - - [2017-09-01 06:05:19] "GET /select HTTP/1.1" 200 7176 0.001125
+::ffff:108.48.27.54 - - [2017-09-01 06:05:20] "GET /static/stock.js HTTP/1.1" 200 3657 0.049166
+::ffff:108.48.27.54 - - [2017-09-01 06:05:20] "GET /research HTTP/1.1" 200 2472 0.001004
+::ffff:108.48.27.54 - - [2017-09-01 06:07:27] "GET / HTTP/1.1" 200 34463 0.064475
+::ffff:108.48.27.54 - - [2017-09-01 06:07:28] "GET /research HTTP/1.1" 200 2472 0.001012
+::ffff:108.48.27.54 - - [2017-09-01 06:07:29] "GET / HTTP/1.1" 200 34463 0.063847
+::ffff:108.48.27.54 - - [2017-09-01 06:07:35] "GET /indexlist/szdetail HTTP/1.1" 200 31771 0.007572
+::ffff:108.48.27.54 - - [2017-09-01 07:32:54] "GET / HTTP/1.1" 200 3929 0.006652
+::ffff:108.48.27.54 - - [2017-09-01 07:41:18] "GET /indexlist/dpdetail HTTP/1.1" 200 63581 0.011458
+::ffff:108.48.27.54 - - [2017-09-01 07:41:25] "GET / HTTP/1.1" 200 3929 0.004848
+::ffff:108.48.27.54 - - [2017-09-01 07:41:27] "GET /indexlist/hz300detail HTTP/1.1" 200 3820 0.002058
+::ffff:108.48.27.54 - - [2017-09-01 07:49:37] "GET / HTTP/1.1" 200 3929 0.004960
+::ffff:108.48.27.54 - - [2017-09-01 07:49:41] "GET / HTTP/1.1" 200 3929 0.004834
+::ffff:108.48.27.54 - - [2017-09-01 07:54:54] "GET / HTTP/1.1" 200 3929 0.010374
+::ffff:108.48.27.54 - - [2017-09-01 07:54:55] "GET / HTTP/1.1" 200 3929 0.007097
+::ffff:108.48.27.54 - - [2017-09-01 07:54:56] "GET / HTTP/1.1" 200 3929 0.005884
+::ffff:108.48.27.54 - - [2017-09-01 07:57:10] "GET / HTTP/1.1" 200 3929 0.006566
+::ffff:108.48.27.54 - - [2017-09-01 07:57:12] "GET / HTTP/1.1" 200 3929 0.009513
+::ffff:108.48.27.54 - - [2017-09-01 08:01:53] "GET / HTTP/1.1" 200 3929 0.004970
+::ffff:108.48.27.54 - - [2017-09-01 08:01:55] "GET / HTTP/1.1" 200 3929 0.004822
+::ffff:108.48.27.54 - - [2017-09-01 08:13:32] "GET / HTTP/1.1" 200 3415 0.048516
+::ffff:108.48.27.54 - - [2017-09-01 08:13:33] "GET / HTTP/1.1" 200 4457 0.043860
+::ffff:108.48.27.54 - - [2017-09-01 08:13:35] "GET / HTTP/1.1" 200 4457 0.050902
+::ffff:108.48.27.54 - - [2017-09-01 08:13:36] "GET / HTTP/1.1" 200 4457 0.027241
+::ffff:108.48.27.54 - - [2017-09-01 08:13:57] "GET /indexlist/szdetail HTTP/1.1" 200 31904 0.006549
+::ffff:108.48.27.54 - - [2017-09-01 08:14:51] "GET / HTTP/1.1" 200 4457 0.028708
+::ffff:108.48.27.54 - - [2017-09-01 08:15:18] "GET /indexlist/dpdetail HTTP/1.1" 200 2548 0.001785
+::ffff:108.48.27.54 - - [2017-09-01 08:25:42] "GET / HTTP/1.1" 200 33513 0.053488
+::ffff:108.48.27.54 - - [2017-09-01 08:25:54] "GET /indexlist/szdetail HTTP/1.1" 200 31904 0.006604
+::ffff:47.52.34.171 - - [2017-09-01 08:26:23] "GET / HTTP/1.0" 200 33532 0.052932
+::ffff:108.48.27.54 - - [2017-09-01 08:28:57] "GET / HTTP/1.1" 200 33513 0.053570
+::ffff:108.48.27.54 - - [2017-09-01 08:30:12] "GET /industrylist/%E5%9B%BD%E9%98%B2%E5%86%9B%E5%B7%A5 HTTP/1.1" 200 24229 0.005464
+::ffff:108.48.27.54 - - [2017-09-01 08:30:33] "GET /stockdetail/002608-%E6%B1%9F%E8%8B%8F%E5%9B%BD%E4%BF%A1 HTTP/1.1" 200 1982 0.018944
+::ffff:108.48.27.54 - - [2017-09-01 08:30:35] "GET /static/kchart.js HTTP/1.1" 200 3593 0.040472
+::ffff:108.48.27.54 - - [2017-09-01 08:30:35] "GET /static/echarts.js HTTP/1.1" 200 363534 0.866449
+::ffff:108.48.27.54 - - [2017-09-01 08:30:39] "GET /static/chart/k.js HTTP/1.1" 200 5644 0.014274
+::ffff:108.48.27.54 - - [2017-09-01 08:30:39] "GET /stock/sz002608?_=1504225839137 HTTP/1.1" 200 39010 0.146394
+::ffff:108.48.27.54 - - [2017-09-01 12:28:06] "GET / HTTP/1.1" 200 33513 0.082456
+::ffff:108.48.27.54 - - [2017-09-01 12:28:08] "GET /research HTTP/1.1" 200 2472 0.001003
+::ffff:47.93.127.198 - - [2017-09-01 15:04:45] "GET / HTTP/1.0" 200 33532 0.052250
+<socket fileno=11>: Invalid HTTP method: 'r\xfe\x1d\x13\x00\x00\x00\x00\x00\x00\x00\x02\x00\x01\x86\xa0\x00\x01\x97|\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+::ffff:47.88.76.4 - - [2017-09-02 02:01:24] "rþ        †  —|                    " 400 - 3.825830

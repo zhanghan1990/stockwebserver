@@ -1,0 +1,30 @@
+import pandas as pd
+from zipline import TradingAlgorithm
+from zipline.api import order, sid,get_datetime
+from zipline.data.loader import load_data
+from zipline.api import order_target, record, symbol, history, add_history,symbol,set_commission,order_percent,set_long_only,get_open_orders
+from zipline.finance.commission import OrderCost
+
+
+def initialize(context):
+    context.has_ordered = False
+    set_commission(OrderCost(open_tax=0,close_tax=0.001,open_commission=0.0003,close_commission=0.0003,close_today_commission=0,min_commission=5))
+    set_long_only()
+
+def handle_data(context, data):
+
+    #输出每天持仓情况
+
+    if not context.has_ordered:
+        for stock in data:
+            #openprice=history(3, '1d', 'open')
+            closeprice=history(5,'1d','close')
+            #0:今天的价位，1:昨天的价位，2:前天价格，以此类推
+            print get_datetime(),closeprice[sid(stock)][0],closeprice[sid(stock)][1],closeprice[sid(stock)][2],closeprice[sid(stock)][3],closeprice[sid(stock)][4]
+            #print closeprice,closeprice[sid(stock)][1]
+            if closeprice[sid(stock)][1]>closeprice[sid(stock)][2] and closeprice[sid(stock)][2]>closeprice[sid(stock)][3]:
+                print "buy",get_datetime()
+                order(stock, 300)
+            elif closeprice[sid(stock)][1]<closeprice[sid(stock)][2] and closeprice[sid(stock)][2]<closeprice[sid(stock)][3]:
+                print "sell",get_datetime()
+                order(stock, -300)

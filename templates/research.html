@@ -1,0 +1,52 @@
+{% extends "base.html"  %}
+{% block title %}量化研究{% endblock %}
+{% block page_content %}
+<script src="{{ url_for('static', filename='ace.js') }}"></script>
+
+<style type="text/css" media="screen">
+    body {
+        overflow: hidden;
+    }
+
+    #code {
+        margin: 0;
+        position: absolute;
+        top: 70px;
+        bottom: 0px;
+        left: 0;
+        right: 700px;
+    }
+  </style>
+
+  
+<div style="width:500px; float:left;">
+        <h1 align="center">编写策略</h1>
+      
+        <pre id="code"></pre>
+
+</div>
+
+    
+
+<div style=" margin-left:500px;">
+    <h1 align="center">回测结果</h1>
+</div>  
+
+<script>
+    ace.require("ace/ext/language_tools");
+
+    var editor = ace.edit("code");
+    editor.setTheme("ace/theme//monokai");
+    editor.session.setMode("ace/mode/python");
+
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+
+
+</script>
+
+
+{% endblock %}

@@ -1,4 +1,5 @@
 #encoding:utf-8
+import pytz
 from flask import Flask,render_template,request, render_template, jsonify
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.script import Manager
@@ -14,13 +15,23 @@ import datetime
 import time
 from bson import json_util
 import tushare as ts
-
+import pandas as pd
+from zipline import TradingAlgorithm
+from zipline.api import order, sid,get_datetime
+from zipline.data.loader import load_data
+from zipline.api import order_target, record, symbol, history, add_history,symbol,set_commission,order_percent,set_long_only,get_open_orders
+from zipline.finance.commission import OrderCost
+from pylab import *
+mpl.rcParams['font.sans-serif'] = ['SimHei']
+mpl.rcParams['axes.unicode_minus'] = False
+import pymongo
 import httplib2
 from pandas import DataFrame
 # gevent
 from gevent import monkey
 from gevent.pywsgi import WSGIServer
 monkey.patch_all()
+
 
 
 app = Flask(__name__)
@@ -31,6 +42,22 @@ moment = Moment(app)
 app.config['MONGO_HOST'] = '127.0.0.1'
 app.config['MONGO_PORT'] = 27017
 mongo = PyMongo(app)
+
+client = pymongo.MongoClient('127.0.0.1',27017)
+oriprice=client.stockoriginalprice    #股票原始数据
+stocks=oriprice.collection_names()
+stocklist=[]
+for s in stocks:
+    stocklist.append(s[2:8])
+client.close()
+
+
+input_data = load_data(
+    stockList=stocklist,
+    start="1990-01-04",
+    end="2016-01-16")
+
+
 
 def is_valid_date(str):
     '''判断是否是一个有效的日期字符串'''
@@ -236,6 +263,21 @@ def ownselect():
     
     return render_template("ownselect.html")
 
+
+# 量化回测
+@app.route('/research')
+def research():
+    f=open('test','r')
+    code=f.read()
+    f.close()
+    #start=datetime(2015, 12, 10, tzinfo=pytz.utc),end=datetime(2016, 12, 10, tzinfo=pytz.utc),
+    algo = TradingAlgorithm(script=code, startdate="2015-11-20",enddate="2016-12-25",capital_base=10000,benchmark='sz399004')
+    results = algo.run(input_data)
+    print results
+    return render_template("research.html")
+
+
+
 # 按照指标选股
 @app.route('/stocks/')
 def stocksselect():
@@ -281,12 +323,7 @@ def stocksselect():
     turnoverdown=float(request.args.get('turnoverdown'))
     turnoverup=float(request.args.get('turnoverup'))
 
-
-
-
-    #print onedayup,onedaydown,fivedaydown,fivedayup,tendayup,tendaydown,thirtydaydown,thirtydayup,nightydaydown,nightydayup
-
-    #print str(pedown)+" <PE< "+str(peup)+" "+str(psdown)+" <PS< "+str(psup)+" "+str(pbdown)+" <PB< "+str(pbup)+" "+str(pcdown)+" <PC< "+str(pcup)
+    
 
     #从数据库进行选取
     alldatabase=mongo.db.client.pricetime.collection_names()
