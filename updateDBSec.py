@@ -380,7 +380,7 @@ class InsertDataCVS:
                     volume = realTime.loc[c].volume
                     makrket = realTime.loc[c].mktcap
                     dict1={"code":c,"name":name,"pe":pe,"change":changepercent,"turnoverratio":turnoverratio,"volume":volume,"marketcap":makrket,"5day":stock_5day,"10day":stock_10day,"30day":stock_30day,"90day":stock_90day}
-                    print i,dict1
+                    
 
 
 
@@ -551,8 +551,8 @@ class InsertDataCVS:
 if __name__ == '__main__':
     I=InsertDataCVS(constants.IP,constants.PORT)
     I.Conn()
-    I.ComputeRealIndex()
-    #I.InsertIndestry()
+    #I.ComputeRealIndex()
+    I.InsertIndestry()
     #I.ComputeIndustryIndexDay()
     #I.computeIndestryIndex()
     #I.storagepool()

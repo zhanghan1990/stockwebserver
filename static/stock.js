@@ -1,4 +1,3 @@
-
 $(document).ready(function(){ 
 $('#button').click(function(){
     pedown = document.getElementById("pedown").value;

@@ -32,7 +32,8 @@ from gevent import monkey
 from gevent.pywsgi import WSGIServer
 monkey.patch_all()
 
-
+from cStringIO import StringIO
+import sys
 
 app = Flask(__name__)
 manager = Manager(app)
@@ -47,17 +48,14 @@ client = pymongo.MongoClient('127.0.0.1',27017)
 oriprice=client.stockoriginalprice    #股票原始数据
 stocks=oriprice.collection_names()
 stocklist=[]
-for s in stocks:
-    stocklist.append(s[2:8])
-client.close()
+# for s in stocks:
+#     stocklist.append(s[2:8])
+# client.close()
 
 
-input_data = load_data(
-    stockList=stocklist,
-    start="1990-01-04",
-    end="2016-01-16")
+input_data = load_data(stockList=['000919'],start="1990-01-01",end="2016-01-16")
 
-
+print input_data
 
 def is_valid_date(str):
     '''判断是否是一个有效的日期字符串'''
@@ -260,20 +258,45 @@ def returnindexname(indexname):
 # 主观选股
 @app.route('/select')
 def ownselect():
-    
     return render_template("ownselect.html")
+
+
+
+# 量化回测
+@app.route('/startbacktest')
+def startbacktest():
+    starttime = request.args.get('starttime')
+    endtime = request.args.get('endtime')
+    code = request.args.get('code')
+    #处理代码
+    old_stdout = sys.stdout
+    old_stderr = sys.stderr
+    sys.stdout = mystdout = StringIO()
+    sys.stderr = mystderr = StringIO()
+
+    try:
+        algo = TradingAlgorithm(script=code, startdate=starttime,enddate=endtime,capital_base=10000,benchmark='sz399004')
+        results = algo.run(input_data)
+        print results
+    except Exception as error:
+        print('caught this error: ' + repr(error))
+         
+    sys.stdout = old_stdout
+    sys.stderr = old_stderr
+    print mystdout.getvalue()
+    print mystderr.getvalue()
+
+    json_results = []
+    return toJson(json_results)
 
 
 # 量化回测
 @app.route('/research')
 def research():
-    f=open('test','r')
-    code=f.read()
-    f.close()
     #start=datetime(2015, 12, 10, tzinfo=pytz.utc),end=datetime(2016, 12, 10, tzinfo=pytz.utc),
-    algo = TradingAlgorithm(script=code, startdate="2015-11-20",enddate="2016-12-25",capital_base=10000,benchmark='sz399004')
-    results = algo.run(input_data)
-    print results
+    #algo = TradingAlgorithm(script=code, startdate="2015-11-20",enddate="2016-12-25",capital_base=10000,benchmark='sz399004')
+    #results = algo.run(input_data)
+    #print results
     return render_template("research.html")
 
 

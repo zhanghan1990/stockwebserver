@@ -2,51 +2,101 @@
 {% block title %}量化研究{% endblock %}
 {% block page_content %}
 <script src="{{ url_for('static', filename='ace.js') }}"></script>
-
+<script src="{{ url_for('static', filename='code.js') }}"></script>
+<script src="{{ url_for('static', filename='echarts.js') }}"></script>
+<script src="{{ url_for('static', filename='kchart.js') }}"></script>
 <style type="text/css" media="screen">
     body {
         overflow: hidden;
     }
-
     #code {
         margin: 0;
         position: absolute;
         top: 70px;
         bottom: 0px;
         left: 0;
-        right: 700px;
+        right: 650px;
     }
-  </style>
-
-  
+</style>  
 <div style="width:500px; float:left;">
-        <h1 align="center">编写策略</h1>
-      
-        <pre id="code"></pre>
+
+<pre id="code">
+import pandas as pd
+from zipline.api import order, sid,get_datetime
+from zipline.data.loader import load_data
+from zipline.api import order_target, record, symbol, history, add_history,symbol,set_commission,order_percent,set_long_only,get_open_orders
+from zipline.finance.commission import OrderCost
+
+
+def initialize(context):
+    context.has_ordered = False
+    set_commission(OrderCost(open_tax=0,close_tax=0.001,open_commission=0.0003,close_commission=0.0003,close_today_commission=0,min_commission=5))
+    set_long_only()
+
+
+def handle_data(context, data):
+
+#输出每天持仓情况
+
+    if not context.has_ordered:
+        for stock in data:
+            #openprice=history(3, '1d', 'open')
+            closeprice=history(5,'1d','close')
+            #0:今天的价位，1:昨天的价位，2:前天价格，以此类推
+            print get_datetime(),closeprice[sid(stock)][0],closeprice[sid(stock)][1],closeprice[sid(stock)][2],closeprice[sid(stock)][3],closeprice[sid(stock)][4]
+            #print closeprice,closeprice[sid(stock)][1]
+            if closeprice[sid(stock)][1]>closeprice[sid(stock)][2] and closeprice[sid(stock)][2]>closeprice[sid(stock)][3]:
+                print "buy",get_datetime()
+                order(stock, 300)
+            elif closeprice[sid(stock)][1]&lt closeprice[sid(stock)][2] and closeprice[sid(stock)][2]&lt closeprice[sid(stock)][3]:
+                print "sell",get_datetime()
+                order(stock, -300)
+        
+</pre>
 
 </div>
+<div style=" margin-left:580px;">
+    <form class="form-inline">
+        <div class="form-group">
+          <label for="exampleInputEmail2">起始时间：</label>
+        </div>
 
-    
+        <div class="form-group">
+          <input type="text" class="form-control" id="starttime" value="2010-01-01" >
+        </div>
+        <div class="form-group">
+                <label for="exampleInputEmail2">终止时间：</label>
+        </div>
 
-<div style=" margin-left:500px;">
-    <h1 align="center">回测结果</h1>
+        <div class="form-group">
+          <input type="text" class="form-control" id="endtime" value="2016-01-01">
+        </div> 
+        <div class="form-group">
+        <button type="submit" class="btn btn-default" id="startbutton">开始回测</button>
+        </div>
+</form>
+<div id="main" style="height:300px;width:600px;border:1px solid #ccc;padding:10px;"></div>
+<div id="debugarea" style="height:250px;width:600px;background:#000; color:#FFF">
+    <pre id="debug"></pre>
+</div>
 </div>  
-
 <script>
     ace.require("ace/ext/language_tools");
-
     var editor = ace.edit("code");
-    editor.setTheme("ace/theme//monokai");
+    editor.setTheme("ace/theme/tomorrow");
     editor.session.setMode("ace/mode/python");
-
     editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
         enableLiveAutocompletion: true
     });
-
-
 </script>
+
+<script>
+        ace.require("ace/ext/language_tools");
+        var editor = ace.edit("bug");
+        editor.setTheme("ace/theme/tomorrow");
+    </script>
 
 
 {% endblock %}

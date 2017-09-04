@@ -90,7 +90,7 @@ class THS:
         i = 1
         while i <= int(pagenumber):
             #print i,pagenumber
-            url='http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/'+str(i)+'/ajax/1/code/'+code
+            url='http://q.10jqka.com.cn/gn/detail/field/199112/order/desc/page/'+str(i)+'/ajax/1/code/'+code
             print url
             detail = self.getPage(url)
             pattern=re.compile('<tbody>(.*?)</tbody>',re.S)
@@ -110,7 +110,7 @@ class THS:
     def start(self,url):
         IndexPage=self.getPage(url)
         industry=self.getContent(IndexPage)
-        #print industry['name']
+        print industry['name']
         for key in industry.keys():
            # print industry[key]['name']
             # 获取每个industry的详尽代码
@@ -118,16 +118,20 @@ class THS:
             firstpage=self.getPage(urldetail)
             pattern=re.compile('<span class="page_info">1/(.*?)</span>',re.S)
             items = re.findall(pattern,firstpage)
-            print key,items
-        #     for item in items:
-        #         #print item
-        #         self.getDetail(key,item[0])
+            # 说明只有一页
+            if items==[]:
+                print "DDDDDD"
+            else:
+                self.getDetail(key,items[0])
+            for item in items:
+                print item
+                self.getDetail(key,item[0])
             
 
 
 bdtb = THS()
-#bdtb.start('http://q.10jqka.com.cn/thshy/')
-bdtb.start('http://q.10jqka.com.cn/gn/')
+bdtb.start('http://q.10jqka.com.cn/thshy/')
+#bdtb.start('http://q.10jqka.com.cn/gn/')
 # from selenium import webdriver
  
 # browser = webdriver.Chrome('/Users/zhanghan/Downloads/chromedriver')
